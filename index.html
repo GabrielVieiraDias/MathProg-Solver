@@ -110,21 +110,21 @@
     </div>
   </div>
 
-  <!-- modal Confirm Clear All -->
+  <!-- modal Confirmar limpeza do editor -->
   <div id="modalConfirmClearAll" class="modal" role="dialog">
     <dif class="modal-dialog">
       <div class="modal-content" style="width: 75%; background: #fff; border-radius:20px;">
         <div class="modal-header" style="padding-top: 10px;">
-            <h3>You have unsaved changes ...</h3>
+            <h3>Existem altera&ccedil;&otilde;es a serem salvas...</h3>
         </div>
         <div class="modal-body">
           <p>
-            Confirm you wish to clear the editor and lose unsaved changes.
+            Voc&ecirc; vai perder todas as suas altera&ccedil;&otilde;es. Tem certeza que deseja limpar o editor?
           </p>
         </div>
         <div class="modal-footer">
-          <button id='btnModalConfirmClearAll' class="btn" data-dismiss="modal" style='margin-right:100px;'>Do Not Save Changes</button>
-          <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+          <button id='btnModalConfirmClearAll' class="btn" data-dismiss="modal" style='margin-right:100px;'>N&atilde;o salvar altera&ccedil;&otilde;es</button>
+          <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
         </div>
       </div>
     </div>
@@ -137,18 +137,18 @@
     <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container-fluid" style="background:#003b7b;">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#" style="color:#ffffff;">MathProg Solver</a>
+          <a class="navbar-brand" href="#" style="color:#ffffff;">Solucionador MathProg</a>
         </div>
 
         <!-- Models menu -->
         <ul class="nav navbar-nav">
           <li class="dropdown">
-            <a href="#" style="background: #003b7b; color: #dddddd;">Model <span class="caret"></span></a>
+            <a href="#" style="background: #003b7b; color: #dddddd;">Modelo <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#" id="menuNew">New</a></li>
-              <li><a href="#" id="menuOpen">Open ...</a></li>
-              <li><a href="#" id="menuSave">Save</a></li>
-              <li><a href="#" id="menuSaveAs">Save As ...</a></li>
+              <li><a href="#" id="menuNew">Novo</a></li>
+              <li><a href="#" id="menuOpen">Abrir ...</a></li>
+              <li><a href="#" id="menuSave">Salvar</a></li>
+              <li><a href="#" id="menuSaveAs">Salvar como ...</a></li>
             </ul>
           </li>
         </ul>
@@ -156,11 +156,11 @@
         <!-- Examples menu -->
         <ul class="nav navbar-nav">
           <li class="dropdown">
-            <a href="#" style="background:#003b7b;color: #dddddd;">Examples <span class="caret"></span></a>
+            <a href="#" style="background:#003b7b;color: #dddddd;">Exemplos <span class="caret"></span></a>
             <ul class="dropdown-menu">
               
               <li class="dropdown-submenu">
-                <a href="#">MathProg Basics <span class="caret"></span></a>
+                <a href="#">MathProg - B&aacute;sicos <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href='#' class="example" id="HelloWorld">Hello, World</a></li>
                   <li><a href='#' class="example" id="lpTwoVars">Linear Program in Two Variables</a></li>
@@ -171,7 +171,7 @@
               </li>
               
               <li class="dropdown-submenu">
-                <a href="#">Tables and Charts <span class="caret"></span></a>
+                <a href="#">Tabelas e Gr&aacute;ficos <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href='#' class="example" id="ChartTools">Google Charts</a></li>
                 </ul>
@@ -186,7 +186,7 @@
               </li>
 
               <li class="dropdown-submenu">
-                <a href = '#'>Scheduling <span class="caret"></span></a>
+                <a href = '#'>Agendameto <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href='#' class="example" id="ProjectCPM">Project Management with CPM</a></li>
                   <li><a href='#' class="example" id="Bottleneck">Machine Bottleneck</a></li>
@@ -197,7 +197,7 @@
               </li>
               
               <li class="dropdown-submenu">
-                <a href = '#'>Transportation/Assignment <span class="caret"></span></a>
+                <a href = '#'>Transporte e Atribui&ccedil;&otilde;es <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href='#' class="example" id="TransportNet">Transportation Network</a></li>
                   <li><a href='#' class="example" id="StockCutting">Stock Cutting</a></li>
@@ -206,7 +206,7 @@
               </li>
                                     
               <li class="dropdown-submenu">
-                <a href = '#'>Route Optimization <span class="caret"></span></a>
+                <a href = '#'>Rota otimizada <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href='#' class="example" id="tsptw">Traveling Salesman with Time Windows</a></li>
                   <li><a href='#' class="example" id="vrp">Vehicle Routing</a></li>
@@ -215,7 +215,7 @@
               </li>
 
               <li class="dropdown-submenu">
-                <a href = '#'>Stochastic Programming <span class="caret"></span></a>
+                <a href = '#'>Programação Estoc&aacute;stica <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href='#' class="example" id="Newsvendor">Newsvendor Problem</a></li>
                   <li><a href='#' class="example" id="PlantExpansion">Scenario Analysis for a Plant Expansion</a></li>
@@ -225,7 +225,7 @@
               </li>
               
               <li class="dropdown-submenu">
-                <a href='#'>Engineering <span class="caret"></span></a>
+                <a href='#'>Engenharia <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href='#' class="example" id="DataReconciliation">Data Reconciliation</a></li>
                   <li><a href='#' class="example" id="Solvay">Generation/Consumption Analysis</a></li>
@@ -233,7 +233,7 @@
               </li>
               
               <li class="dropdown-submenu">
-                <a href = '#'>Finance <span class="caret"></span></a>
+                <a href = '#'>Finan&ccedil;as <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href='#' class="example" id="retirement">Saving for Retirement</a></li>
                   <li><a href='#' class="example" id="PortfolioMAD">Portfolio Optimization (MAD)</a></li>
@@ -248,7 +248,7 @@
               
               
               <li class="dropdown-submenu">
-                <a href = '#'>Advanced Techniques <span class="caret"></span></a>
+                <a href = '#'>T&eacute;cnicas Avan&ccedil;adas <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href='#' class="example" id="MVNormal">Sampling a Multivariate Normal Distribution</a></li>
                   <li><a href='#' class="example" id="PiecewiseLinearInterpolation">Piecewise Linear Interpolation</a></li>
