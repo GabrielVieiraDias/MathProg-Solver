@@ -296,11 +296,11 @@
       <!-- Button Bar -->
       <div id='btnBar' style='width:100%;margin-top:-5px;'>
         <div class="btn-group" style="float:left;">
-          <button class="btn" id='btnNewModel' title='Clear description, model, and output.'>New Model</button>
-          <button class="btn" id='btnOpenModel' title='Open model from file.'>Open Model...</button>
-          <button class="btn" id='btnSaveModel' title='Save model to file.'>Save Model...</button>
+          <button class="btn" id='btnNewModel' title='Limpar alterações e cria um novo modelo.'>Novo Modelo</button>
+          <button class="btn" id='btnOpenModel' title='Abrir modelo de um arquivo.'>Abrir Modelo...</button>
+          <button class="btn" id='btnSaveModel' title='Salvar modelo em um arquivo.'>Salvar Modelo...</button>
         </div>
-        <button class="btn btn-success" id='btnSolveModel' style='float: right;' title='Compute a solution to the model.'>Solve</button>
+        <button class="btn btn-success" id='btnSolveModel' style='float: right;' title='Calcular uma solução para o modelo.'>Solucionar</button>
       </div>
       <br>
       
@@ -312,12 +312,12 @@
       <!-- Output Tabs -->
       <div class="tabbable" style="width: 100%; margin-top:0px; margin-bottom:0px;">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#tab1" data-toggle="tab"><h4 style="margin-top:3px; margin-bottom:3px;">Dashboard</h4></a></li>
-          <li><a href="#outputTab" data-toggle="tab"><h4 style="margin-top:3px; margin-bottom:3px;">Output</h4></a></li>
-          <li><a href="#dataTab" data-toggle="tab"><h4 style="margin-top:3px; margin-bottom:3px;">Data</h4></a></li>
-          <li><a href="#variableTab" data-toggle="tab"><h4 style="margin-top:3px; margin-bottom:3px;">Variables</h4></a></li>
-          <li><a href="#constraintTab" data-toggle="tab"><h4 style="margin-top:3px; margin-bottom:3px;">Constraints</h4></a></li>
-          <li><a href="#tab5" data-toggle="tab"><h4 style="margin-top:3px; margin-bottom:3px;">Log</h4></a></li>
+          <li class="active"><a href="#tab1" data-toggle="tab"><h4 style="margin-top:3px; margin-bottom:3px;">Painel de Controle</h4></a></li>
+          <li><a href="#outputTab" data-toggle="tab"><h4 style="margin-top:3px; margin-bottom:3px;">Sa&iacute;da</h4></a></li>
+          <li><a href="#dataTab" data-toggle="tab"><h4 style="margin-top:3px; margin-bottom:3px;">Dados</h4></a></li>
+          <li><a href="#variableTab" data-toggle="tab"><h4 style="margin-top:3px; margin-bottom:3px;">Vari&aacute;veis</h4></a></li>
+          <li><a href="#constraintTab" data-toggle="tab"><h4 style="margin-top:3px; margin-bottom:3px;">Restri&ccedil;&otilde;es</h4></a></li>
+          <li><a href="#tab5" data-toggle="tab"><h4 style="margin-top:3px; margin-bottom:3px;">Registros</h4></a></li>
         </ul>
         
         <div class="tab-content">
@@ -326,15 +326,15 @@
           <div class="tab-pane active" id="tab1">
             <div id='dashboardPanel' style="min-height: 380px;">
               <table id='dashboardTable' class="table table-condensed table-bordered table-hover" style="width: 100%">
-                <tr><td>Problem Type</td><td id="dashboardProb" class="dashboardCell"></td></tr>
-                <tr><td>Objective</td><td id="dashboardObj" class="dashboardCell"></td></tr>
-                <tr><td>Objective Value</td><td id="dashboardObjVal" class="dashboardCell"></td></tr>
-                <tr><td>Continuous Variables</td><td id="dashboardNvars" class="dashboardCell"></td></tr>
-                <tr><td>Non-binary Integer Variables</td><td id="dashboardNints" class="dashboardCell"></td></tr>
-                <tr><td>Binary Variables</td><td id="dashboardNbins" class="dashboardCell"></td></tr>
-                <tr><td>Number of Variables</td><td id="dashboardNcols" class="dashboardCell"></td></tr>
-                <tr><td>Number of Constraints</td><td id="dashboardNrows" class="dashboardCell"></td></tr>
-                <tr><td>Number of Nonzero Coefficients</td><td id="dashboardNnz" class="dashboardCell"></td></tr>
+                <tr><td>Tipo de Problema</td><td id="dashboardProb" class="dashboardCell"></td></tr>
+                <tr><td>Objetivo</td><td id="dashboardObj" class="dashboardCell"></td></tr>
+                <tr><td>Valor Objetivo</td><td id="dashboardObjVal" class="dashboardCell"></td></tr>
+                <tr><td>Vari&aacute;veis Cont&iacute;nuas</td><td id="dashboardNvars" class="dashboardCell"></td></tr>
+                <tr><td>Vari&aacute;veis inteiras  n&atilde;o bin&eacute;rias</td><td id="dashboardNints" class="dashboardCell"></td></tr>
+                <tr><td>Vari&aacute;veis bin&aacute;rias</td><td id="dashboardNbins" class="dashboardCell"></td></tr>
+                <tr><td>N&uacute;mero de Vari&aacute;veis</td><td id="dashboardNcols" class="dashboardCell"></td></tr>
+                <tr><td>N&uacute;mero de Restri&ccedil;&otilde;es</td><td id="dashboardNrows" class="dashboardCell"></td></tr>
+                <tr><td>N&uacute;mero de coeficientes n&atilde;o zero</td><td id="dashboardNnz" class="dashboardCell"></td></tr>
               </table>
             </div>
           </div>
