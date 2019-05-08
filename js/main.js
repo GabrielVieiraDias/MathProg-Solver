@@ -104,6 +104,13 @@ $('#btnSaveModel').click( function() {
 $('#btnSolveModel').click( function() {
   solveModel();
   this.blur();
+  
+  var elementos = modelEditor.getValue();
+  var result = "";
+
+  var out = elementos.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,'')
+
+  console.log('teste', out);
 });
 
 /**********************************************************************
