@@ -223,30 +223,16 @@ function openModel () {
  * Save model to external filesystem
  */
 function saveModel() {
-  if (fileEntry !== null) {
-    save();
-  } else {
-    chrome.fileSystem.chooseEntry(
-      { type: 'saveFile',
-        suggestedName: fileName,
-        accepts : [ { description: 'Model files (*.mod)',
-                      extensions : ['mod'] } ]
-      },
-      function(fe) {
-        if (fe) {
-          fileEntry = fe;
-          fileName = fe.name;
-          save();
-        }
-      }
-    );
-  }
-}
+      var text = modelEditor.getValue();//$("#textarea").val();
+      var fileName = "untitled"//$("#input-fileName").val()
+      var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+      saveAs(blob, fileName+".mod");   
+} 
+
 
 
 function saveModelAs() {
-  fileEntry = null;
-  saveModel();
+  save();
 }
 
 function save () {
