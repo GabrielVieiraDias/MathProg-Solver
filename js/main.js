@@ -94,7 +94,15 @@ $('#btnNewModel').click( function() {
   this.blur();
 });
 $('#btnOpenModel').click( function() {
-  openModel();
+  var a = 1;
+  while(a == 1){
+    if((document.getElementById('inputOpenModel').value) == null){
+      a = 1;
+    }else{
+      a = 0;
+      openModel();
+    }
+  }
   this.blur();
 });
 $('#btnSaveModel').click( function() {
@@ -177,15 +185,10 @@ function openExample(modelFile) {
 /**
  * Open a model from the external file system
  */
-function openModel () {
-  if (modelEditor.isClean()) {
-    chrome.fileSystem.chooseEntry(
-      { type: 'openFile',
-        accepts:  [ { description: 'Model files (*.mod)',
-                      extensions : ['mod'] } ]
-      },
-      function(fe) {
-        if (fe) {
+function openModel () { 
+  if (modelEditor.isClean()) {    
+    var fe = document.getElementById('inputOpenMode').value;
+      if (fe) {
           fe.file(function(file) {
             var reader = new FileReader();
             reader.onload = function(e) {
@@ -196,7 +199,6 @@ function openModel () {
               if (str !== null) {
                 $('#instructionContent').html(str[1]);
                 renderMathInElement(document.getElementById("instructionContent"));
-/*                $('#instructionContent').html(md.render(str[1])); */
               } else {
                 $('#instructionContent').html('&nbsp;');
               }
@@ -205,11 +207,8 @@ function openModel () {
               clearOutput();
             };
             reader.readAsText(file);
-          },
-          errorHandler
-        );
+          });
       }
-    });
   } else {
     $('#btnModalConfirmClearAll').click(function() {
       modelEditor.markClean();
