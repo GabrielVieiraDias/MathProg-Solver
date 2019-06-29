@@ -186,8 +186,27 @@ function openExample(modelFile) {
  * Open a model from the external file system
  */
 function openModel () { 
+  
   if (modelEditor.isClean()) {    
-    var fe = document.getElementById('inputOpenMode').value;
+    
+  function lerArquivoTxt(evt){
+    var texto = "";
+    var files = evt.target.files;
+    for (var i = 0, f; f = files[i]; i++){
+        var reader = new FileReader();
+        reader.onload = function(event){
+            var conteudo = event.target.result;
+            var linhas = conteudo.split('\n');
+            for(x=0;x<linhas.length;x++){
+               texto += linhas[x];
+            }
+            modelEditor.setValue(texto);
+        };
+        reader.readAsText(f);
+    }
+}
+document.getElementById('inputOpenModel').addEventListener('change', lerArquivoTxt, false);
+  /*  var fe = document.getElementById('inputOpenModel').value;
       if (fe) {
           fe.file(function(file) {
             var reader = new FileReader();
@@ -208,7 +227,7 @@ function openModel () {
             };
             reader.readAsText(file);
           });
-      }
+      }*/
   } else {
     $('#btnModalConfirmClearAll').click(function() {
       modelEditor.markClean();
