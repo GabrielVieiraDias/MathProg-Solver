@@ -46,6 +46,7 @@
   <script src="libs/smartmenus-1.0.0/addons/bootstrap/jquery.smartmenus.bootstrap.min.js"></script>
   <link href="libs/Bootstrap/3.3.4/bootstrap.min.css" rel="stylesheet">
   <link href="libs/smartmenus-1.0.0/addons/bootstrap/jquery.smartmenus.bootstrap.css" rel="stylesheet">
+  <link href="css/mathprog.css" rel="stylesheet">
   <style>
     pre {
       font-family: Consolas, Monoco, "Courier New"; 
@@ -146,8 +147,8 @@
           <li class="dropdown">
             <a href="#" style="background: #003b7b; color: #dddddd;">Modelo <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#" id="menuNew">Novo</a></li>
-              <li><a href="#" id="menuOpen">Abrir ...</a></li>
+              <li><a href="#" id="menuNew" onclick="document.getElementById('btnNewModel').click()">Novo</a></li>
+              <li><a href="#" id="menuOpen" onclick="document.getElementById('inputOpenModel').click()">Abrir ...</a></li>
               <li><a href="#" id="menuSave">Salvar</a></li>
               <li><a href="#" id="menuSaveAs">Salvar como ...</a></li>
             </ul>
@@ -287,20 +288,23 @@
     <div id='content' style="padding-top: 40px;">
 
       <!-- Instruction -->
-      <div id='instructionContent' style="padding-top: 40px;"></div>
+      <div id='instructionContent' style="padding-top: 1px;"></div>
       <br>
 
       <!-- Model Editor -->
-      <h4 id='modelFileName'></h4>
+      <div style="margin-bottom: 10px;">
+        <h4>Nome do arquivo</h4>
+        <input type="text" id='modelFileName' class="NomeArquivo"></input>.mod
+      </div>
       <textarea id='editor'></textarea><br>
 
       <!-- Button Bar -->
-      <div id='btnBar' style='width:100%;margin-top:-5px;'>
+      <div id='btnBar' style='width:100%;margin-top:1px;'>
         <div class="btn-group" style="float:left;">
-          <button class="btn" id='btnNewModel' title='Limpar alterações e cria um novo modelo.'>Novo Modelo</button>
-          <button class="btn" id='btnOpenModel' title='Abrir modelo de um arquivo.' onclick="document.getElementById('inputOpenModel').click()">Abrir Modelo...</button>
+          <button class="btn btn-primary bordaRedonda" id='btnNewModel' title='Limpar alterações e cria um novo modelo.'>Novo Modelo</button>
+          <button class="btn btn-primary bordaRedonda" id='btnOpenModel' title='Abrir modelo de um arquivo.' onclick="document.getElementById('inputOpenModel').click()">Abrir Modelo...</button>
           <input type="file" style="display: none;" id="inputOpenModel" name="inputOpenModel[]">
-          <button class="btn" id='btnSaveModel' title='Salvar modelo em um arquivo.'>Salvar Modelo...</button>
+          <button class="btn btn-primary bordaRedonda" id='btnSaveModel' title='Salvar modelo em um arquivo.'>Salvar Modelo...</button>
         </div>
         <button class="btn btn-success" id='btnSolveModel' style='float: right;' title='Calcular uma solução para o modelo.'>Solucionar</button>
       </div>

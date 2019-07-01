@@ -62,3 +62,24 @@ td+td {
 	text-align: right;
 	padding: 20px;
 }
+
+body {
+	background: #f5f5f5;
+}
+
+.NomeArquivo {
+	margin-bottom: 2px;width: 20%;
+	border-top: none;
+	border-left: none;
+	border-color: #00000040;
+	border-right: none;
+}
+
+.bordaRedonda {
+	border-radius: 4px !important;
+	border-top: 0px;
+	border-left: 1px;
+	margin-right: 10px;
+	border-bottom: 1px;
+
+}

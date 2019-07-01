@@ -31,12 +31,12 @@ glpRowStatus[GLP_NF] = 'Free';
 glpRowStatus[GLP_NS] = 'Fixed';
 
 var glpStatus = [];
-glpStatus[GLP_OPT]    = "Solution is optimal.";
-glpStatus[GLP_FEAS]   = "Solution is feasible.";
-glpStatus[GLP_INFEAS] = "Solution is infeasible.";
-glpStatus[GLP_NOFEAS] = "Problem has no feasible solution.";
-glpStatus[GLP_UNBND]  = "Problem has unbounded solution.";
-glpStatus[GLP_UNDEF]  = "Solution is undefined.";
+glpStatus[GLP_OPT]    = "A solução é ótima.";
+glpStatus[GLP_FEAS]   = "A solução é viável.";
+glpStatus[GLP_INFEAS] = "A solução é inviável.";
+glpStatus[GLP_NOFEAS] = "O problema não tem solução viável.";
+glpStatus[GLP_UNBND]  = "O problema tem solução ilimitada.";
+glpStatus[GLP_UNDEF]  = "A solução é indefinida.";
 
 // global glpk data structure
 var lp = glp_create_prob();
@@ -138,7 +138,7 @@ var re = /\s*\/\*+((.|[\r\n])*?)\*+\//;
 function newModel() {
   if (modelEditor.isClean()) {
     fileEntry = null;
-    fileName = "untitled.mod";
+    fileName = document.getElementById('modelFileName');
     $('#instructionContent').html('&nbsp;');
     $('#modelFileName').html(fileName);    
     modelEditor.setValue('');
@@ -242,7 +242,7 @@ document.getElementById('inputOpenModel').addEventListener('change', lerArquivoT
  */
 function saveModel() {
       var text = modelEditor.getValue();//$("#textarea").val();
-      var fileName = "untitled"//$("#input-fileName").val()
+      var fileName = document.getElementById('modelFileName').value;
       var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
       saveAs(blob, fileName+".mod");   
 } 
