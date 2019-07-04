@@ -160,7 +160,7 @@ function openExample(modelFile) {
   if (modelEditor.isClean()) {
     $.get(modelFile).done(function(data) {
       fileEntry = null;
-      fileName = modelFile;
+      fileName = document.getElementById('modelFileName');//modelFile;
       $('#modelFileName').html(fileName);
       modelEditor.setValue(data);
       modelEditor.markClean();
