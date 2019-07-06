@@ -69,7 +69,9 @@ $(modelEditor.getWrapperElement()).resizable({
 // other initializations
 $('#modalAbout').modal({show:false});
 $('#modalConfirmClearAll').modal({show:false});
-$('#btnModalConfirmClearAll').click(function () {});
+$('#btnModalConfirmClearAll').click(function () {
+  document.getElementById('modelFileName').value = "";
+});
 
 $('#menuNew').click(newModel);
 $('#menuOpen').click(openModel);
@@ -182,13 +184,16 @@ function openExample(modelFile) {
   }
 }
 
+function populateName(){
+  document.getElementById('modelFileName').value = document.getElementsByName('inputOpenModel[]')[0].files[0].name;
+}
+
 /**
  * Open a model from the external file system
  */
 function openModel () { 
   
   if (modelEditor.isClean()) {    
-    
   function lerArquivoTxt(evt){
     var texto = "";
     var files = evt.target.files;
@@ -205,31 +210,11 @@ function openModel () {
         reader.readAsText(f);
     }
 }
-document.getElementById('inputOpenModel').addEventListener('change', lerArquivoTxt, false);
-  /*  var fe = document.getElementById('inputOpenModel').value;
-      if (fe) {
-          fe.file(function(file) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-              fileEntry = fe;
-              fileName = fe.name;
-              $('#modelFileName').html(fe.name);
-              var str = re.exec(e.target.result);
-              if (str !== null) {
-                $('#instructionContent').html(str[1]);
-                renderMathInElement(document.getElementById("instructionContent"));
-              } else {
-                $('#instructionContent').html('&nbsp;');
-              }
-              modelEditor.setValue(e.target.result);
-              modelEditor.markClean();
-              clearOutput();
-            };
-            reader.readAsText(file);
-          });
-      }*/
+  document.getElementById('inputOpenModel').addEventListener('change', lerArquivoTxt, false);
+
+  setTimeout(function(){ populateName(); }, 4000);
   } else {
-    $('#btnModalConfirmClearAll').click(function() {
+    $('#btnModalConfirmClearAll').click(function() {   
       modelEditor.markClean();
       openModel();
     });
