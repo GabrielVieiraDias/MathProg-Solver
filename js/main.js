@@ -70,7 +70,11 @@ $(modelEditor.getWrapperElement()).resizable({
 $('#modalAbout').modal({show:false});
 $('#modalConfirmClearAll').modal({show:false});
 $('#btnModalConfirmClearAll').click(function () {
+  if(!modelEditor.isClean())
+    document.getElementById('inputOpenModel').click();
+
   document.getElementById('modelFileName').value = "";
+  modelEditor.setValue('');
 });
 
 $('#menuNew').click(newModel);
@@ -96,15 +100,14 @@ $('#btnNewModel').click( function() {
   this.blur();
 });
 $('#btnOpenModel').click( function() {
-  var a = 1;
-  while(a == 1){
-    if((document.getElementById('inputOpenModel').value) == null){
-      a = 1;
+    if(modelEditor.isClean()){
+      document.getElementById('inputOpenModel').click();
+      openModel();
     }else{
       a = 0;
       openModel();
     }
-  }
+
   this.blur();
 });
 $('#btnSaveModel').click( function() {
