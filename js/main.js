@@ -10,6 +10,7 @@ var fileId = [];
 var fileCount = 0;
 var ds = [];
 var fileEntry = null;
+var isNew = true;
 
 var glpColKind = [];
 glpColKind[GLP_CV] = 'Real';
@@ -69,12 +70,21 @@ $(modelEditor.getWrapperElement()).resizable({
 // other initializations
 $('#modalAbout').modal({show:false});
 $('#modalConfirmClearAll').modal({show:false});
+
 $('#btnModalConfirmClearAll').click(function () {
   if(!modelEditor.isClean())
-    document.getElementById('inputOpenModel').click();
-
-  document.getElementById('modelFileName').value = "";
-  modelEditor.setValue('');
+    {
+      if(isNew){
+        document.getElementById('modelFileName').value = "";
+        modelEditor.setValue('');
+        newModel();
+      }else{
+        document.getElementById('inputOpenModel').click();
+        document.getElementById('modelFileName').value = "";
+        modelEditor.setValue('');
+      }      
+    }
+    
 });
 
 $('#menuNew').click(newModel);
@@ -96,19 +106,27 @@ $('#btnSaveModel').tooltip();
 $('#btnSolveModel').tooltip();
 
 $('#btnNewModel').click( function() {
-  newModel();
-  this.blur();
+  isNew = true;
+  if(!modelEditor.isClean())
+    {
+      if(isNew){
+        document.getElementById('modelFileName').value = "";
+        //modelEditor.setValue('');
+        newModel();
+      }    
+    }else{ newModel(); }
+
 });
 $('#btnOpenModel').click( function() {
-    if(modelEditor.isClean()){
-      document.getElementById('inputOpenModel').click();
-      openModel();
-    }else{
-      a = 0;
-      openModel();
-    }
+  if(modelEditor.isClean()){
+    document.getElementById('inputOpenModel').click();
+   openModel();
+  }else{
+    isNew = false;
+    openModel();
+  }
 
-  this.blur();
+this.blur();
 });
 $('#btnSaveModel').click( function() {
   saveModel();
