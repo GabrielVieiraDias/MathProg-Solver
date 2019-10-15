@@ -179,30 +179,29 @@ function newModel() {
 /**
  * Open model from the Examples menu
  */
-function openExample(modelFile) {
-  if (modelEditor.isClean()) {
-    $.get(modelFile).done(function(data) {
-      fileEntry = null;
-      fileName = document.getElementById('modelFileName');//modelFile;
-      $('#modelFileName').html(fileName);
-      modelEditor.setValue(data);
-      modelEditor.markClean();
-      var str = re.exec(data);
-      if (str !== null) {
-        $('#instructionContent').html(md.render(str[1]));
-        renderMathInElement(document.getElementById("instructionContent"));
-      } else {
-        $('#instructionContent').html('&nbsp;');
-      }
-      clearOutput();
-    });
-  } else {
-    $('#btnModalConfirmClearAll').click(function() {
-      modelEditor.markClean();
-      openExample(modelFile);
-    });
-    $('#modalConfirmClearAll').modal({show: true});
-  }
+function openExample(HelloWorld) {
+  evt = HelloWorld;
+  function lerArquivoTxt(evt){
+    var texto = "";
+    var files = evt.target.files;
+    for (var i = 0, f; f = files[i]; i++){
+        var reader = new FileReader();
+        reader.onload = function(event){
+            var conteudo = event.target.result;
+            var linhas = conteudo.split('\n');
+            for(x=0;x<linhas.length;x++){
+               texto += linhas[x];
+            }
+            modelEditor.setValue(texto);
+        };
+        reader.readAsText(f);
+    }
+}
+lerArquivoTxt(evt);
+}
+
+function teste(){
+  $('#ModalExampleHelloWorld').modal({show: true});
 }
 
 function populateName(){
