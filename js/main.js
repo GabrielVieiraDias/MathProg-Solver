@@ -223,9 +223,12 @@ function openModel () {
             var conteudo = event.target.result;
             var linhas = conteudo.split('\n');
             for(x=0;x<linhas.length;x++){
+               
                texto += linhas[x];
+               texto += '\n';
             }
             modelEditor.setValue(texto);
+            alert(texto);
         };
         reader.readAsText(f);
     }
@@ -240,6 +243,7 @@ function openModel () {
     });
     $('#modalConfirmClearAll').modal({show: true});
   }
+
 }
 
 /**
