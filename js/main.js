@@ -228,7 +228,6 @@ function openModel () {
                texto += '\n';
             }
             modelEditor.setValue(texto);
-            alert(texto);
         };
         reader.readAsText(f);
     }
