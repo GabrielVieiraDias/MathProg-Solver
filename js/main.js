@@ -142,6 +142,7 @@ $('#btnSolveModel').click( function() {
   var out = elementos.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,'')
 
   console.log('teste', out);
+
 });
 
 /**********************************************************************
@@ -180,6 +181,7 @@ function newModel() {
  * Open model from the Examples menu
  */
 function openExample(HelloWorld) {
+
   evt = HelloWorld;
   function lerArquivoTxt(evt){
     var texto = "";
@@ -197,11 +199,14 @@ function openExample(HelloWorld) {
         reader.readAsText(f);
     }
 }
-lerArquivoTxt(evt);
+document.getElementById('inputOpenModel').addEventListener('change', lerArquivoTxt(HelloWorld), false);
 }
 
 function teste(){
   $('#ModalExampleHelloWorld').modal({show: true});
+}
+function copiarExemplo(){
+  modelEditor.setValue($('#aaa').text()); 
 }
 
 function populateName(){

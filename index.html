@@ -140,38 +140,38 @@
         <div class="modal-header" style="padding-top: 10px;">
             <h3>Hello World</h3>
         </div>
-        <div class="modal-body">
-          <p>
-            
-              <p>/*# Hello, World</p>
+        <div id="aaa" class="modal-body">
+<p>
+  
+<p>/*# Hello, World</p>
 
-              <p>This is one of the simplest MathProg models one can write. Thw `printf` statement
-              prints information to the model output. Note the use of `\n` to separate lines of output.
-              </p><p>
-              * The first statement is a comment. MathProg ignores everything on a line following
-              a hash tag `#`
-              * Every statement ends with a semicolon `;`
-              * The end of model is indicated by the `end;` statement.
-              * There is a final new line following the `end;` statement.
-              </p>
-              <p>
-              Experiment with this simple file. Try adding additional lines of output including
-              blank lines. See what happens if you leave out a needed semicolon or the final
-              `end;` statement.
-              </p>
-              On *MathProg Solver* you will find the output under the tab labelled Output.
-              */
-              
-              <p><b>
-                printf "Hello, World!\n";
-                <p>end;</p>
-                
-              </b>
-            </p>
+<p>This is one of the simplest MathProg models one can write. Thw `printf` statement
+  prints information to the model output. Note the use of `\n` to separate lines of output.
+</p><p>
+* The first statement is a comment. MathProg ignores everything on a line following
+a hash tag `#`
+* Every statement ends with a semicolon `;`
+* The end of model is indicated by the `end;` statement.
+* There is a final new line following the `end;` statement.
+</p>
+<p>
+Experiment with this simple file. Try adding additional lines of output including
+blank lines. See what happens if you leave out a needed semicolon or the final
+`end;` statement.
+</p>
+On *MathProg Solver* you will find the output under the tab labelled Output.
+*/
+
+<p><b>
+  printf "Hello, World!\n";
+  <p>end;</p>
+  
+</b>
+  </p>
           </p>
         </div>
         <div class="modal-footer">
-          <button id='btnCopycode' class="btn btn-success" data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
+          <button id='btnCopycode' class="btn btn-success" onclick='copiarExemplo()' data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
           <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
         </div>
       </div>
