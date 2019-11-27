@@ -212,6 +212,9 @@ function exampleLpTwoVars(){
 function exampleLinearEqns(){
   $('#ModalExampleLinearEqns').modal({show: true});
 }
+function exampleSets(){
+  $('#ModalExampleSets').modal({show: true});
+}
 
 
 function copiarExemplo(id){
@@ -221,7 +224,10 @@ function copiarExemplo(id){
     modelEditor.setValue($('#lpTwoVars').text().trim());
   }else if(id == 'linearEqns'){
     modelEditor.setValue($('#linearEqns').text().trim());
+  }else if(id == 'sets'){
+    modelEditor.setValue($('#sets').text().trim());
   }
+
 }
 
 

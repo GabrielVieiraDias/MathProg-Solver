@@ -319,6 +319,76 @@ end;<br>
       </div>
     </div>
   </div>
+
+  
+  <!-- modal Example -->
+  <div id="ModalExampleSets" class="modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+          <div class="modal-header" style="padding-top: 10px;">
+              <h3>Sets</h3>
+          </div>
+          <div id="sets" class="modal-body">
+<p>/* # Set Operations in MathProg</p>
+
+<p>Sets are a basic concept in mathematical programming languages. Sets are 
+used to define the objects of discourse in a particular application. A 
+convenient notation to is name sets in all caps so they are readily 
+distinguished from variables and parameters appearing in an application.
+</p>
+<p>This example demonstrates several basic and useful set manipulations in
+MathProg:</p>
+<p>
+* `union`: the union of sets<br>
+* `card` : the cardinality (i.e, number of elements) of a set<br>
+* : intersection of sets<br>
+* : difference of sets<br>
+* : symmetric difference of sets<br>
+*/
+</p>
+<p>
+<b>
+set DOGS := {'Beagle','Labrador','Shepherd','Boxer'};<br>
+set CATS := {'Tiger','Lion'};<br>
+set FISH := {'Goldfish','Guppy','Shark'};<br>
+
+# Union of Sets<br>
+
+set PETS := DOGS union CATS union FISH;<br>
+
+printf "PETS: ";<br>
+for {pet in PETS} printf "%4s ", pet;<br>
+
+# Cardinality of a Set<br>
+
+printf "\n\nNumber of Pets: %d", card(PETS);<br>
+
+set DANGEROUS := {'Tiger','Lion','Shark','Crocodile'};<br>
+
+# Intersection<br>
+
+# Difference of Sets<br>
+set SAFE := PETS diff DANGEROUS;<br>
+
+printf "\n\nSAFE: ";<br>
+
+for {pet in SAFE} printf "%4s ",pet;<br>
+
+# Symmetric Difference of Sets<br>
+
+printf "\n\n";<br>
+end;
+</b>
+</p>
+</p>
+          </div>
+          <div class="modal-footer">
+            <button id="btnCopycode" class="btn btn-success" onclick="copiarExemplo('sets')" data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
+            <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
   
 
   <!-- container -->
@@ -356,7 +426,7 @@ end;<br>
                   <li><a id="ExampleHelloWorld" onclick="exampleHelloWorld();">Hello, World</a></li>
                   <li><a id="lpTwoVars" onclick="exampleLpTwoVars();">Linear Program in Two Variables</a></li>
                   <li><a id="linearEqns" onclick="exampleLinearEqns();">Linear Equations</a></li>
-                  <li><a href='#' class="example" id="Sets">Sets</a></li>
+                  <li><a id="Sets" onclick="exampleSets();">Sets</a></li>
                   <li><a href='#' class="example" id="Parameters">Parameters</a></li>
                 </ul>
               </li>
