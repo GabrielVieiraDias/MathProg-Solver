@@ -179,7 +179,7 @@ function newModel() {
 
 /**
  * Open model from the Examples menu
- */
+
 function openExample(HelloWorld) {
 
   evt = HelloWorld;
@@ -201,13 +201,29 @@ function openExample(HelloWorld) {
 }
 document.getElementById('inputOpenModel').addEventListener('change', lerArquivoTxt(HelloWorld), false);
 }
+ */
 
-function teste(){
+function exampleHelloWorld(){
   $('#ModalExampleHelloWorld').modal({show: true});
 }
-function copiarExemplo(){
-  modelEditor.setValue($('#aaa').text()); 
+function exampleLpTwoVars(){
+  $('#ModalExample2variable').modal({show: true});
 }
+function exampleLinearEqns(){
+  $('#ModalExampleLinearEqns').modal({show: true});
+}
+
+
+function copiarExemplo(id){
+  if(id == 'helloWorld'){
+    modelEditor.setValue($('#helloWorld').text().trim()); 
+  }else if(id == 'lpTwoVars'){
+    modelEditor.setValue($('#lpTwoVars').text().trim());
+  }else if(id == 'linearEqns'){
+    modelEditor.setValue($('#linearEqns').text().trim());
+  }
+}
+
 
 function populateName(){
   document.getElementById('modelFileName').value = document.getElementsByName('inputOpenModel[]')[0].files[0].name;

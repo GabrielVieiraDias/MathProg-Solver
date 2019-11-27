@@ -140,7 +140,7 @@
         <div class="modal-header" style="padding-top: 10px;">
             <h3>Hello World</h3>
         </div>
-        <div id="aaa" class="modal-body">
+        <div id="helloWorld" class="modal-body">
 <p>
   
 <p>/*# Hello, World</p>
@@ -171,13 +171,155 @@ On *MathProg Solver* you will find the output under the tab labelled Output.
           </p>
         </div>
         <div class="modal-footer">
-          <button id='btnCopycode' class="btn btn-success" onclick='copiarExemplo()' data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
+          <button id='btnCopycode' class="btn btn-success" onclick="copiarExemplo('helloWorld')" data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
           <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
         </div>
       </div>
     </div>
   </div>
 
+
+  <!-- modal Example -->
+  <div id="ModalExample2variable" class="modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+          <div class="modal-header" style="padding-top: 10px;">
+              <h3>Linear Program in Two Variables</h3>
+          </div>
+          <div id="lpTwoVars" class="modal-body">
+<p>/*# Linear Program in Two Variables</p>
+
+<p>Write a MathProg model to find the maximum value of \\(z=3x + 4y\\) 
+subject to the following set of constraints
+</p>
+<p>
+\\[x + 2y  \leq 14 \\]<br>
+\\[3x - y  \geq 0 \\]<br>
+\\[x - y  \leq 2 \\]<br>
+</p>
+<p>
+The maximum value of \\(z\\) is 34.  What are the corresponding values of 
+\\(x\\) and \\(y\\)? What is the minimum value of \\(z\\)?
+*/
+</p>
+<p>
+# Define Variables<br>
+var x;<br>
+var y;
+</p>
+<p>
+<b>
+# Define Constraints
+s.t. A: x + 2*y <= 14;<br>
+s.t. B: 3*x - y >= 0;<br>
+s.t. C: x - y <= 2;<br>
+
+# Define Objective<br>
+maximize z: 3*x + 4*y;<br>
+
+# Solve<br>
+solve;<br>
+
+<p>end;</p>
+
+  </b>
+    </p>
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button id="btnCopycode" class="btn btn-success" onclick="copiarExemplo('lpTwoVars')" data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
+            <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+    <!-- modal Example -->
+<div id="ModalExampleLinearEqns" class="modal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+        <div class="modal-header" style="padding-top: 10px;">
+            <h3>Solving a System of Linear Equations</h3>
+        </div>
+        <div id="linearEqns" class="modal-body">
+<p>/* # Solving a System of Linear Equations
+
+MathProg is a language for describing linear and discrete optimization problems.
+A series of exercises described below will introduce MathProg by demonstrating 
+how to solve to small system of linear equations.
+
+Consider a set of three linear equations
+</p>
+
+<p>
+\\[ 2x + y + z = 12\\]<br>
+\\[ x + 2y + z = 23 \\]<br>
+\\[ x + y + z = 10 \\]<br>
+</p>
+<p>
+in the three unknowns \\(x\\), \\(y\\), and \\(z\\).<br>
+
+To find a solution with MathProg you need to create a description of the problem.
+For this case the description consists of<br>
+</p>
+<p>
+1. a description of the variables, <br>
+2. a description of the equations,<br>
+3. additional keywords indicating the desired actions, and <br>
+4. comments necessary for someone to understand the description. <br>
+
+These points are demonstrated in the MathProg model shown below. <br><br>
+
+Note the following points as you examine this model &mdash;<br><br>
+
+* The hashtags denote comments. Anything following the hashtag on the same line is ignored by MathProg.<br>
+* Semicolons separate statements in MathProg. A MathProg statement may continue over several lines.<br>
+* The statements starting with the keyword `var` describe variables appearing in the problem. There is a separate line for each variable.<br>
+* The next group of statements describe equations appearing in the problem. Each statement begins with a name of an equation separated by a colon from the equation itself. The equations are written in standard computer notation. Each equation must have a name.<br>
+* The keyword `solve` indicates a solution is to be computed.<br>
+* The keyword `end` indicates completion of the problem description.<br><br>
+
+Here are a few exercises to try <br><br>
+
+1. Click the Solve button underneath the editor. Locate the solution for \\(x\\),<br>
+\\(y\\), and \\(z\\) in the tab labeled 'Variables'. In the constraints tab locate<br>
+the solution for each equation.<br>
+2. Change the equations. Explore how the solution changes depends on equation<br>
+parameters. See what happens when two of the equations are identical.<br>
+3. The Wikipedia page [Systems of Linear Equations](http://en.wikipedia.org/wiki/System_of_linear_equations) showes some example problems. Click `New Model`, then write a MathProg model from scratch to solve one of the examples.<br>
+*/
+</p>
+<p>
+<b>
+
+# List the variables<br>
+var x;<br>
+var y;<br>
+var z;<br>
+
+# List the equations<br>
+Eq1:  2*x +   y +  z = 12;<br>
+Eq2:    x + 2*y +  z = 23;<br>
+Eq3:    x +   y +  z = 10;<br><br>
+
+# Solve<br>
+solve;<br><br>
+
+end;<br>
+
+</b>
+</p>
+</p>
+</div>
+        <div class="modal-footer">
+          <button id="btnCopycode" class="btn btn-success" onclick="copiarExemplo('linearEqns')" data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
+          <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
   <!-- container -->
   <div id='container'>
@@ -211,9 +353,9 @@ On *MathProg Solver* you will find the output under the tab labelled Output.
               <li class="dropdown-submenu">
                 <a href="#">MathProg - B&aacute;sicos <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a id="ExampleHelloWorld" href='#' id="HelloWorld" onclick="teste();">Hello, World</a></li>
-                  <li><a href='#' class="example" id="lpTwoVars">Linear Program in Two Variables</a></li>
-                  <li><a href='#' class="example" id="linearEqns">Linear Equations</a></li>
+                  <li><a id="ExampleHelloWorld" onclick="exampleHelloWorld();">Hello, World</a></li>
+                  <li><a id="lpTwoVars" onclick="exampleLpTwoVars();">Linear Program in Two Variables</a></li>
+                  <li><a id="linearEqns" onclick="exampleLinearEqns();">Linear Equations</a></li>
                   <li><a href='#' class="example" id="Sets">Sets</a></li>
                   <li><a href='#' class="example" id="Parameters">Parameters</a></li>
                 </ul>
