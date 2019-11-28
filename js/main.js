@@ -215,7 +215,12 @@ function exampleLinearEqns(){
 function exampleSets(){
   $('#ModalExampleSets').modal({show: true});
 }
-
+function exempleParametes(){
+  $('#ModalExampleParameters').modal({show: true});
+}
+function exampleChartTools(){
+  $('#ModalExampleChartTools').modal({show: true});
+}
 
 function copiarExemplo(id){
   if(id == 'helloWorld'){
@@ -226,8 +231,11 @@ function copiarExemplo(id){
     modelEditor.setValue($('#linearEqns').text().trim());
   }else if(id == 'sets'){
     modelEditor.setValue($('#sets').text().trim());
+  }else if(id == 'parameters'){
+    modelEditor.setValue($('#parameters').text().trim());
+  }else if(id == 'chartTools'){
+    modelEditor.setValue($('#chartTools').text().trim());
   }
-
 }
 
 

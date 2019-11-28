@@ -391,6 +391,208 @@ end;
     </div>
   
 
+<!-- modal Example -->
+<div id="ModalExampleParameters" class="modal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+        <div class="modal-header" style="padding-top: 10px;">
+            <h3>Parameters</h3>
+        </div>
+        <div id="parameters" class="modal-body">
+<p>/* # Working with Parameters */</p>
+
+<p>/* Define sets */</p>
+
+<p>
+set STUDENTS; <br>
+set COURSES;<br>
+</p>
+<p>
+/* Declare Parameters */<br><br>
+
+param credits{c in COURSES} >= 0;<br>
+param schedules{s in STUDENTS, c in COURSES} binary;<br>
+</p>
+<p>
+
+
+/* Computed Parameter */<br><br>
+
+param loads{s in STUDENTS} := sum{c in COURSES} schedules[s,c]*credits[c];<br><br>
+
+/* Report Results */<br><br>
+
+printf "STUDENTS\n";<br>
+printf {student in STUDENTS} "  %-10s  %3d  \n",student,loads[student];<br><br>
+
+printf "\nCOURSES\n";<br>
+printf {c in COURSES} "  %s\n",c;<br>
+printf "\n\n";<br><br>
+
+/* Data Section */<br><br>
+
+data;<br><br>
+
+set STUDENTS := Alex Brian Carl Diane Emil Francine;<br>
+set COURSES  := Math English Chemistry Physics;<br><br>
+
+param credits :=<br>
+    Math         3<br>
+    English      3<br>
+    Chemistry    4<br>
+    Physics      5 ;<br><br>
+
+param schedules: Math English Chemistry Physics :=<br>
+    Alex     1   1   0   0<br>
+    Brian    0   0   1   1<br>
+    Carl     1   0   0   1<br>
+    Diane    0   1   1   1<br>
+    Emil     1   0   1   0<br>
+    Francine 0   1   1   0 ;<br><br>
+
+end;<br>
+</p>
+</p>
+        </div>
+        <div class="modal-footer">
+          <button id="btnCopycode" class="btn btn-success" onclick="copiarExemplo('parameters')" data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
+          <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal Example -->
+<div id="ModalExampleChartTools" class="modal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+        <div class="modal-header" style="padding-top: 10px;">
+            <h3>Chart Tools</h3>
+        </div>
+        <div id="chartTools" class="modal-body">
+<p>/* # Chart Tools</p>
+
+<p> The table driver GCHART creates charts using Google Chart Tools. The chart<br>
+options are specified using the MathProg table syntax <br><br>
+
+  table tname {x in X} OUT "GCHART" title chartType options : x~fld, y[x]~Y, ...<br><br>
+
+where <br><br>
+
+  title: A required string to be used a title of the chart<br>
+  chartType: An optional string specifying the chart type.  Consult the Google<br>
+  Chart Tools documentation for a list of valid types.<br>
+  options: An optional string in JSON format of options. Consult the Google<br>
+  Chart Tools for documentation.<br><br>
+
+Consult the GMPL Language Reference for details regarding MathProg's table<br>
+statement.<br><br>
+*/</p>
+
+<p>
+# Line Chart - Simple, no options<br>
+table t01 {x in 0..10 by 0.1} OUT "GCHART" "Mathematical Functions" "LineChart" : <br>
+x~Radians, sin(x), cos(x);<br>
+</p>
+<p>
+# Table - Create<br><br>
+  set MONTHS;<br>
+  param Temp{MONTHS};<br>
+  param Precip{MONTHS};<br>
+  table t03 {m in MONTHS} OUT "GCHART" "Weather Data for International Falls, MN, USA" "Table":<br>
+  m~Month, Temp[m]~Temperature, Precip[m]~Precipitation;<br><br>
+</p>
+<p>
+# Column Chart with options<br>
+  param t04_options symbolic := "{vAxis: {title: 'Temperature (C)'}}";<br>
+  table t04 {m in MONTHS} OUT "GCHART" "International Falls, MN, USA" "ColumnChart" t04_options:<br> 
+  m~Month, (5/9)*(Temp[m]-32)~Temperature;<br>
+</p>
+
+<p>
+    
+# Bar Chart<br>
+table t05 {m in MONTHS} OUT "GCHART" "International Falls, MN, USA" "BarChart"<br>
+    "{height: 400}": m~Month, Temp[m]~Temperature;<br><br>
+
+# Combo Chart<br>
+param cc_options symbolic := """<br>
+   { legend: {position: 'in'},<br>
+     seriesType: 'bars',<br>
+     vAxes: {0: {title: 'Temperature (F)'}, <br>
+             1: {title: 'Precipitation (in)'}},<br>
+     series: {0: {type: 'bar'}, <br>
+              1: {type: 'area', targetAxisIndex: 1}}<br>
+    }  """;<br>
+table tab6 {m in MONTHS} OUT "GCHART" "International Falls, MN, USA" "ComboChart" cc_options: <br>
+    m~Month, <br>
+    Temp[m]~Temperature,<br>
+    Precip[m]~Precipitation;<br><br>
+    
+# Pie Chart<br>
+table t07 {m in {'Jun','Jul','Aug'}} OUT "GCHART" "Summer Precipitation" "PieChart" : <br>
+    m~Month, Precip[m]~Precipitation;<br><br>
+
+# Scatter Chart with Options<br>
+param sc_options symbolic := """<br>
+    { vAxis: {title: 'Temperature (F)'},<br>
+      hAxis: {title: 'Precipitation (inches)'},<br>
+      height: 480, <br>
+      width: 640 } """;<br>
+table t08 {m in MONTHS} OUT "GCHART" "Precipitation vs. Temperature" "ScatterChart" sc_options: <br>
+    Temp[m]~Temperature,<br>
+    Precip[m]~Precipiation;<br><br>
+    
+# Gauge <br>
+set DATA := {'AveTemp (F)', 'AnnPrecip (in)'};<br>
+var x{DATA};<br>
+s.t. A: x['AveTemp (F)'] = (sum {m in MONTHS} Temp[m])/card(MONTHS);<br>
+s.t. B: x['AnnPrecip (in)'] = sum {m in MONTHS} Precip[m];<br>
+solve;<br>
+table tab9 {d in DATA} OUT "GCHART" "Annual Weather Summary" "Gauge" : d, x[d];<br><br>
+    
+# Geo Chart - Regions<br>
+set BRIC := {'Brazil','Russia','India','China'};<br>
+table tab10 {s in BRIC} OUT "GCHART" "BRIC Countries" "GeoChart" : s, Uniform(1,2)~Data;<br><br>
+
+# Geo Chart - Markers<br>
+set ACC := {<br>
+   'Atlanta','Blacksburg','Boston','Chapel Hill','Charlottesville',<br>
+   'Clemson','College Park','Durham','Miami','Pittsburgh','Syracuse',<br>
+   'Raleigh','South Bend','Tallahassee','Winston-Salem'};<br>
+param g_options symbolic := """<br>
+    { region: 'US',<br>
+      displayMode: 'markers',<br>
+      colorAxis: {colors: ['green', 'blue']} }""";<br>
+table tab11 {s in ACC} OUT "GCHART" "Atlantic Coast Conference" "GeoChart" g_options: s, 1~Data;<br><br>
+
+data;<br><br>
+
+param : MONTHS : Temp Precip :=<br>
+      Jan       1.0      0.9<br>
+      Feb       7.7      0.6<br>
+      Mar      22.1      1.1<br>
+      Apr      39.0      1.6<br>
+      May      52.1      2.5<br>
+      Jun      61.4      3.9<br>
+      Jul      66.7      3.6<br>
+      Aug      63.7      3.1<br>
+      Sep      53.4      3.1<br>
+      Oct      42.4      2.0<br>
+      Nov      24.9      1.1<br>
+      Dec       7.2      0.8 ;<br><br>
+ 
+end;
+</p>
+        </div>
+        <div class="modal-footer">
+          <button id="btnCopycode" class="btn btn-success" onclick="copiarExemplo('chartTools')" data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
+          <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- container -->
   <div id='container'>
 
@@ -426,15 +628,15 @@ end;
                   <li><a id="ExampleHelloWorld" onclick="exampleHelloWorld();">Hello, World</a></li>
                   <li><a id="lpTwoVars" onclick="exampleLpTwoVars();">Linear Program in Two Variables</a></li>
                   <li><a id="linearEqns" onclick="exampleLinearEqns();">Linear Equations</a></li>
-                  <li><a id="Sets" onclick="exampleSets();">Sets</a></li>
-                  <li><a href='#' class="example" id="Parameters">Parameters</a></li>
+                  <li><a id="sets" onclick="exampleSets();">Sets</a></li>
+                  <li><a id="parameters" onclick="exempleParametes();">Parameters</a></li>
                 </ul>
               </li>
               
               <li class="dropdown-submenu">
                 <a href="#">Tabelas e Gr&aacute;ficos <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href='#' class="example" id="ChartTools">Google Charts</a></li>
+                  <li><a id="ChartTools" onclick="exampleChartTools();">Google Charts</a></li>
                 </ul>
               </li>
 
