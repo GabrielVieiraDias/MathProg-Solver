@@ -182,31 +182,6 @@ function newModel() {
   }
 }
 
-/**
- * Open model from the Examples menu
-
-function openExample(HelloWorld) {
-
-  evt = HelloWorld;
-  function lerArquivoTxt(evt){
-    var texto = "";
-    var files = evt.target.files;
-    for (var i = 0, f; f = files[i]; i++){
-        var reader = new FileReader();
-        reader.onload = function(event){
-            var conteudo = event.target.result;
-            var linhas = conteudo.split('\n');
-            for(x=0;x<linhas.length;x++){
-               texto += linhas[x];
-            }
-            modelEditor.setValue(texto);
-        };
-        reader.readAsText(f);
-    }
-}
-document.getElementById('inputOpenModel').addEventListener('change', lerArquivoTxt(HelloWorld), false);
-}
- */
 
 function exampleHelloWorld(){
   $('#ModalExampleHelloWorld').modal({show: true});
@@ -226,20 +201,60 @@ function exempleParametes(){
 function exampleChartTools(){
   $('#ModalExampleChartTools').modal({show: true});
 }
+function exampleProjectCPM(){
+  $('#ModalExampleProjectCPM').modal({show: true});
+}
+function exampleJobShop(){
+  $('#ModalExampleJobShop').modal({show: true});
+}
+function exampleTransportationNetwork(){
+  $('#ModalExampleTransportationNetwork').modal({show: true});
+}
+
+
+
 
 function copiarExemplo(id){
   if(id == 'helloWorld'){
+    document.getElementById('modelFileName').value = "";
     modelEditor.setValue($('#helloWorld').text().trim()); 
+    document.getElementById('modelFileName').value = "helloWorld";
   }else if(id == 'lpTwoVars'){
+    document.getElementById('modelFileName').value = "";
     modelEditor.setValue($('#lpTwoVars').text().trim());
+    document.getElementById('modelFileName').value = "lpTwoVars";
   }else if(id == 'linearEqns'){
+    document.getElementById('modelFileName').value = "";
     modelEditor.setValue($('#linearEqns').text().trim());
+    document.getElementById('modelFileName').value = "linearEqns";
   }else if(id == 'sets'){
+    document.getElementById('modelFileName').value = "";
     modelEditor.setValue($('#sets').text().trim());
+    document.getElementById('modelFileName').value = "sets";
   }else if(id == 'parameters'){
+    document.getElementById('modelFileName').value = "";
     modelEditor.setValue($('#parameters').text().trim());
+    document.getElementById('modelFileName').value = "parameters";
   }else if(id == 'chartTools'){
+    document.getElementById('modelFileName').value = "";
     modelEditor.setValue($('#chartTools').text().trim());
+    document.getElementById('modelFileName').value = "chartTools";
+  }else if(id == 'ProjectCPM'){
+    document.getElementById('modelFileName').value = "";
+    modelEditor.setValue($('#projectCPM').text().trim());
+    document.getElementById('modelFileName').value = "ProjectCPM";
+  }else if(id == 'jobShop'){
+    document.getElementById('modelFileName').value = "";
+    modelEditor.setValue($('#jobShop').text().trim());
+    document.getElementById('modelFileName').value = "jobShop";
+  }else if(id == 'Jesuit'){
+    document.getElementById('modelFileName').value = "";
+    modelEditor.setValue($('#Jesuit').text().trim());
+    document.getElementById('modelFileName').value = "Jesuit";
+  }else if(id == 'transportationNetwork'){
+    document.getElementById('modelFileName').value = "";
+    modelEditor.setValue($('#transportationNetwork').text().trim());
+    document.getElementById('modelFileName').value = "TransportationNetwork";
   }
 }
 

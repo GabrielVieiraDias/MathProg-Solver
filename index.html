@@ -593,6 +593,482 @@ end;
     </div>
   </div>
 
+  <!-- modal Example -->
+  <div id="ModalExampleProjectCPM" class="modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+          <div class="modal-header" style="padding-top: 10px;">
+              <h3>ProjectCPM</h3>
+          </div>
+          <div id="projectCPM" class="modal-body">
+/* # Project Management with the Critical Path Method<br>
+
+The Critical Path Method is a technique for calculating the shortest time span 
+  needed to complete a series of tasks. The tasks are represented by nodes, each 
+  labelled with the duration. The precedence order of the task is given by a set 
+  of arcs.<br>
+
+Here we demonstrate the representation and calculation of the critical path. 
+  Decision variables are introduced for<br><br>
+
+* Earliest Start<br>
+* Earliest Finish<br>
+* Latest Start<br>
+* Latest Finish<br>
+* Slack = Earliest Finish - Earliest Start = Latest Finish - Earliest  Finish<br><br>
+
+Tasks on the Critical Path have zero slack.<br>
+*/<br><br>
+
+set TASKS;<br>
+set ARCS within {TASKS cross TASKS};<br><br>
+
+/* Parameters are the durations for each task */<br>
+param dur{TASKS} >= 0;<br><br>
+
+/* Decision Variables associated with each task*/<br>
+var Tes{TASKS} >= 0;     # Earliest Start<br>
+var Tef{TASKS} >= 0;     # Earliest Finish<br>
+var Tls{TASKS} >= 0;     # Latest Start<br>
+var Tlf{TASKS} >= 0;     # Latest Finish<br>
+var Tsl{TASKS} >= 0;     # Slacks<br><br>
+
+/* Global finish time */<br>
+var Tf >= 0;<br><br>
+
+/* Minimize the global finish time and, secondarily, maximize slacks */<br>
+minimize ProjectFinish : card(TASKS)*Tf - sum {j in TASKS} Tsl[j];<br><br>
+
+/* Finish is the least upper bound on the finish time for all tasks */<br>
+s.t. Efnsh {j in TASKS} : Tef[j] <= Tf;<br>
+s.t. Lfnsh {j in TASKS} : Tlf[j] <= Tf;<br><br>
+
+/* Relationship between start and finish times for each task */<br>
+s.t. Estrt {j in TASKS} : Tef[j] = Tes[j] + dur[j];<br>
+s.t. Lstrt {j in TASKS} : Tlf[j] = Tls[j] + dur[j];<br><br>
+
+/* Slacks */<br>
+s.t. Slack {j in TASKS} : Tsl[j] = Tls[j] - Tes[j];<br><br>
+
+/* Task ordering */<br>
+s.t. Eordr {(i,j) in ARCS} : Tef[i] <= Tes[j];<br>
+s.t. Lordr {(j,k) in ARCS} : Tlf[j] <= Tls[k];<br><br>
+
+/* Compute Solution  */<br>
+solve;<br><br>
+
+/* Print Report */<br>
+printf 'PROJECT LENGTH = %8g\n',Tf;<br><br>
+
+/* Critical Tasks are those with zero slack */<br><br>
+
+/* Rank-order tasks on the critical path by earliest start time */<br>
+param r{j in TASKS : Tsl[j] = 0} := sum{k in TASKS : Tsl[k] = 0}<br>
+  if (Tes[k] <= Tes[j]) then 1;<br><br>
+
+printf '\nCRITICAL PATH\n';<br>
+printf '    TASK    DUR     Start    Finish\n';<br>
+printf {k in 1..card(TASKS), j in TASKS : Tsl[j]=0 && k==r[j]}<br>
+  '%8s %6g  %8g  %8g\n', j, dur[j], Tes[j], Tef[j];<br><br>
+
+/* Noncritical Tasks have positive slack */<br><br>
+
+/* Rank-order tasks not on the critical path by earliest start time */<br>
+param s{j in TASKS : Tsl[j] > 0} := sum{k in TASKS : Tsl[k] = 0}<br>
+  if (Tes[k] <= Tes[j]) then 1;<br><br>
+
+printf '\nNON-CRITICAL TASKS\n';<br>
+printf '                 Earliest  Earliest    Latest    Latest \n';<br>
+printf '    TASK    DUR     Start    Finish     Start    Finish     Slack\n';<br>
+printf {k in 1..card(TASKS), j in TASKS : Tsl[j] > 0 && k==s[j]}<br>
+  '%8s %6g  %8g  %8g  %8g  %8g  %8g\n', <br>
+  j,dur[j],Tes[j],Tef[j],Tls[j],Tlf[j],Tsl[j];<br>
+printf '\n';<br><br>
+
+data;<br><br>
+
+/* Stadium Construction Example from Christelle Gueret, Christian Prins, <br>
+Marc Sevaux, "Applications of Optimization with Xpress-MP," Chapter 5,<br>
+Dash Optimization, 2000. */ <br><br>
+
+param : TASKS : dur :=<br>
+  T01   2.0<br>
+  T02  16.0<br>
+  T03   9.0<br>
+  T04   8.0<br>
+  T05  10.0<br>
+  T06   6.0<br>
+  T07   2.0<br>
+  T08   2.0<br>
+  T09   9.0<br>
+  T10   5.0<br>
+  T11   3.0<br>
+  T12   2.0<br>
+  T13   1.0<br>
+  T14   7.0<br>
+  T15   4.0<br>
+  T16   3.0<br>
+  T17   9.0<br>
+  T18   1.0 ;<br><br>
+
+set ARCS := <br>
+  T01  T02<br>
+  T02  T03<br>
+  T02  T04<br>
+  T02  T14<br>
+  T03  T05<br>
+  T04  T07<br>
+  T04  T10<br>
+  T04  T09<br>
+  T04  T06<br>
+  T04  T15<br>
+  T05  T06<br>
+  T06  T09<br>
+  T06  T11<br>
+  T06  T08<br>
+  T07  T13<br>
+  T08  T16<br>
+  T09  T12<br>
+  T11  T16<br>
+  T12  T17<br>
+  T14  T16<br>
+  T14  T15<br>
+  T17  T18 ;<br><br>
+
+end;<br>
+</b>
+</p>
+</p>
+          </div>
+          <div class="modal-footer">
+            <button id="btnCopycode" class="btn btn-success" onclick="copiarExemplo('ProjectCPM')" data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
+            <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- modal Example -->
+  <div id="ModalExampleJobShop" class="modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+          <div class="modal-header" style="padding-top: 10px;">
+              <h3>Job Shop Scheduling</h3>
+          </div>
+          <div id="jobShop" class="modal-body">
+/* # Job Shop Scheduling<br><br>
+
+A simple job shop consists of a set of different machines that process jobs. <br>
+Each job consists of series of tasks that must be completed in specified order<br>
+on the machines. The problem is to schedule the jobs on the machines to minimize <br>
+makespan.<br><br>
+
+Data consists of two tables. The first table is decomposition of the jobs into<br>
+a series of tasks. Each task lists a job name, name of the required machine, <br>
+and task duration.  The second table list task pairs where the first task must <br>
+be completed before the second task can be started. This formulation is quite <br>
+general, but can also specify situations with no feasible solutions.<br>
+*/<br><br>
+
+/* Data Table 1. Tasks consist of Job, Machine, Dur data*/<br>
+set TASKS dimen 2;<br>
+param dur{TASKS};<br><br>
+
+/* Data Table 2 */<br>
+set TASKORDER within {TASKS,TASKS};<br><br>
+
+/* JOBS and MACHINES are inferred from the data tables*/<br>
+set JOBS := setof {(j,m) in TASKS} j;<br>
+set MACHINES := setof {(j,m) in TASKS} m;<br><br>
+
+/* Decision variables are start times for tasks, and the makespan */<br>
+var start{TASKS} >= 0;<br>
+var makespan >= 0;<br><br>
+
+/* BigM is set to be bigger than largest possible makespan */<br>
+param BigM := 1 + sum {(j,m) in TASKS} dur[j,m];<br><br>
+
+/* The primary objective is to minimize makespan, with a secondary<br>
+objective of starting tasks as early as possible */<br>
+minimize OBJ: BigM*makespan + sum{(j,m) in TASKS} start[j,m];<br><br>
+
+/* By definition, all jobs must be completed within the makespan */<br>
+s.t. A {(j,m) in TASKS}: start[j,m] + dur[j,m] <= makespan;<br><br>
+
+/* Must satisfy any orderings that were given for the tasks. */<br>
+s.t. B {(k,n,j,m) in TASKORDER}: start[k,n] + dur[k,n] <= start[j,m];<br><br>
+
+/* Eliminate conflicts if tasks are require the same machine */<br>
+/* y[i,m,j] = 1 if Job i is scheduled before job j on machine m*/<br>
+var y{(i,m) in TASKS,(j,m) in TASKS: i < j} binary;<br>
+s.t. C {(i,m) in TASKS,(j,m) in TASKS: i < j}:<br>
+    start[i,m] + dur[i,m] <= start[j,m] + BigM*(1-y[i,m,j]);<br>
+s.t. D {(i,m) in TASKS,(j,m) in TASKS: i < j}:<br>
+    start[j,m] + dur[j,m] <= start[i,m] + BigM*y[i,m,j];<br><br>
+
+solve;<br><br>
+
+printf "Makespan = %5.2f\n",makespan;<br><br>
+
+/* Post solution, compute finish times for each task to use in report */<br>
+param finish{(j,m) in TASKS} := start[j,m] + dur[j,m];<br><br>
+
+/* Task Summary Report */<br>
+printf "\n                TASK SUMMARY\n";<br>
+printf "\n     JOB   MACHINE     Dur   Start  Finish\n";<br>
+printf {(i,m) in TASKS} "%8s  %8s   %5.2f   %5.2f   %5.2f\n", <br>
+    i, m, dur[i,m], start[i,m], finish[i,m];<br><br>
+
+/* Schedule of activities for each job */<br>
+set M{j in JOBS} := setof {(j,m) in TASKS} m;<br>
+param r{j in JOBS, m in M[j]} := <br>
+    1+sum{n in M[j]: start[j,n] < start[j,m] || start[j,n]==start[j,m] && n < m} 1;<br>
+printf "\n\n           JOB SCHEDULES\n";<br>
+for {j in JOBS} {<br>
+    printf "\n%s:\n",j;<br>
+    printf "         MACHINE   Start   Finish\n";<br>
+    printf {k in 1..card(M[j]), m in M[j]: k==r[j,m]} <br>
+      " %15s   %5.2f    %5.2f\n",m, start[j,m],finish[j,m];<br>
+}<br><br>
+
+/* Schedule of activities for each machine */<br>
+set J{m in MACHINES} := setof {(j,m) in TASKS} j;<br>
+param s{m in MACHINES, j in J[m]} := <br>
+    1+sum{k in J[m]: start[k,m] < start[j,m] || start[k,m]==start[j,m] && k < j} 1;<br>
+printf "\n\n         MACHINE SCHEDULES\n";<br>
+for {m in MACHINES} {<br>
+    printf "\n%s:\n",m;<br>
+    printf "             JOB   Start   Finish\n";<br>
+    printf {k in 1..card(J[m]), j in J[m]: k==s[m,j]} <br>
+      " %15s   %5.2f    %5.2f\n",j, start[j,m],finish[j,m];<br>
+}<br><br>
+
+data;<br><br>
+
+/* Job shop data from Christelle Gueret, Christian Prins,  Marc Sevaux,<br>
+"Applications of Optimization with Xpress-MP," Chapter 5, Dash Optimization, 2000. */<br><br>
+
+/* Jobs are broken down into a list of tasks (j,m), each task described by<br>
+job name j, machine name m, and duration dur[j,m] */<br><br>
+
+param: TASKS: dur :=<br>
+    Paper_1  Blue    45<br>
+    Paper_1  Yellow  10<br>
+    Paper_2  Blue    20<br>
+    Paper_2  Green   10<br>
+    Paper_2  Yellow  34<br>
+    Paper_3  Blue    12<br>
+    Paper_3  Green   17<br>
+    Paper_3  Yellow  28 ;<br><br>
+
+/* List task orderings (k,n,j,m) where task (k,n) must proceed task (j,n) */<br><br>
+
+set TASKORDER :=<br>
+    Paper_1 Blue    Paper_1 Yellow<br>
+    Paper_2 Green   Paper_2 Blue<br>
+    Paper_2 Blue    Paper_2 Yellow<br>
+    Paper_3 Yellow  Paper_3 Blue<br>
+    Paper_3 Blue    Paper_3 Green ;<br><br>
+
+end;<br>
+          </div>
+          <div class="modal-footer">
+            <button id="btnCopycode" class="btn btn-success" onclick="copiarExemplo('jobShop')" data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
+            <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- modal Example -->
+      <div id="ModalExampleJesuit" class="modal" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+              <div class="modal-header" style="padding-top: 10px;">
+                  <h3>Jesuit Volunteer Corps</h3>
+              </div>
+              <div id="Jesuit" class="modal-body">
+/* # Jesuit Volunteer Corps<br><br>
+
+The following problem was formulated by Tomas C. (ND '09) who was working with <br>
+the Jesuit Volunteer Corp in 2009-2010. Here was his problem:<br><br>
+
+> There are 7 of us in the house. We have broken down the chores into 4 <br>
+> major sections: 1) Kitchen, 2) Bathroom, 3) Common Area, 4) Trash. The <br>
+> trash is the only task that needs only one person to accomplish, the <br>
+> other 3 tasks have 2 people assigned to them. Each person needs to rotate<br>
+> through each task twice and the trash only once. The assignments rotate <br>
+> each week. Each person needs to have a new partner each week and no <br>
+> person can have more than one task in a week.<br><br>
+
+In the formulation below we require every possible pair to do at least one task <br>
+together. This is different that requiring a new partner each week, but Tomas<br>
+said later that this would meet their needs.<br><br>
+
+This a challenging computation, depending on your computer this may take a few seconds<br>
+to a few minutes to complete a solution.<br>
+*/<br><br>
+
+/* Number of weeks to schedule */<br>
+param T :=  7;<br><br>
+
+/* Numeric labels for volunteers facilitate creating non-replicated pairs */<br>
+set VOLS := 1..7;<br>
+set TASKS := {'Kitchen', 'Bathroom', 'Commons', 'Trash'};<br>
+set WEEKS := 1..T;<br><br>
+
+/* Compute all pairs of volunteers */<br>
+set PAIRS := setof{u in VOLS, v in VOLS: u < v} (u,v);<br><br>
+
+/* x[v,t,w] = 1 if volunteer v is assigned task t in week w */<br>
+var x{v in VOLS, t in TASKS, w in WEEKS} binary;<br><br>
+
+/* p[u,v,t,w] = 1 if volunteers u and v are paired together on t in week w */<br>
+var p{(u,v) in PAIRS, t in TASKS, w in WEEKS} binary;<br><br>
+
+/* The objective will be the number of times anyone has to do the trash */<br>
+var z integer;<br><br>
+
+minimize obj: z;<br><br>
+
+/* Each volunteer each week must be assigned one task */<br>
+s.t. fa{v in VOLS, w in WEEKS}: sum {t in TASKS} x[v,t,w] = 1;<br><br>
+
+/* Except for Trash, each task each week must be assigned two volunteers */<br>
+s.t. fb{w in WEEKS}: sum {v in VOLS} x[v,'Trash',w] = 1;<br>
+s.t. fc{t in TASKS, w in WEEKS : t <> 'Trash'}: sum {v in VOLS} x[v,t,w] = 2;<br><br>
+
+/* Each volunteer must cycle through each task twice (except trash) */<br>
+s.t. fd{t in TASKS, v in VOLS : t <> 'Trash'}: sum {w in WEEKS} x[v,t,w] >= 2;<br><br>
+
+/* Minimize number of times anyone has to do trash */<br>
+s.t. fz{v in VOLS}: sum {w in WEEKS} x[v,'Trash',w] <= z;<br><br>
+
+/* Pair p(u,v,t,w) is 1 if u and v worked together on Week w and Task t */<br>
+s.t. ga{t in TASKS, w in WEEKS, (u,v) in PAIRS}: p[u,v,t,w] <= x[u,t,w];<br>
+s.t. gb{t in TASKS, w in WEEKS, (u,v) in PAIRS}: p[u,v,t,w] <= x[v,t,w];<br>
+s.t. gc{t in TASKS, w in WEEKS, (u,v) in PAIRS}: <br>
+    p[u,v,t,w] >= x[u,t,w] + x[v,t,w] - 1;<br><br>
+
+/* Each possible pair must do at least one task together. */<br>
+s.t. gd{(u,v) in PAIRS}: sum{t in TASKS, w in WEEKS} p[u,v,t,w] >= 1;<br><br>
+
+solve;<br>
+<br>
+printf "Volunteer Assignments by Weeks";<br>
+for {w in WEEKS}{<br>
+    printf "\n\nWeek: %2s\n",w;<br>
+    printf "Volunteer:";<br>
+    printf {v in VOLS} "%3s",v;<br>
+    for {t in TASKS}{<br>
+      printf "\n%9s:",t;<br>
+      printf {v in VOLS} "%3s", if x[v,t,w]=1 then "X" else "-";<br>
+    }<br>
+}<br><br>
+
+printf "\n\n\n Analysis of Volunteer Pairs";<br>
+for{(u,v) in PAIRS}{<br>
+    printf "\n\nPair: (%s,%s)\n",u,v;<br>
+    printf "     Week:";<br>
+    printf {w in WEEKS} "%3s",w;<br>
+    for {t in TASKS}{<br>
+      printf "\n%9s:",t;<br>
+      printf {w in WEEKS} "%3s", if p[u,v,t,w]=1 then "X" else "-";<br>
+    }<br>
+}<br><br>
+
+end;<br>
+              </div>
+              <div class="modal-footer">
+                <button id="btnCopycode" class="btn btn-success" onclick="copiarExemplo('Jesuit')" data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
+                <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <!-- modal Example -->
+      <div id="ModalExampleTransportationNetwork" class="modal" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+              <div class="modal-header" style="padding-top: 10px;">
+                  <h3>Transportation Network</h3>
+              </div>
+              <div id="transportationNetwork" class="modal-body">
+/* # Transportation Network<br><br>
+
+This is a simple model to demonstrate modeling of a transportation <br>
+    network for a system with sources and destinations. The given supply and<br>
+    demand constraints, the objective is to minimize transportation costs. <br>
+    This model demonstrates:<br><br>
+
+* Transportation optimization.<br>
+* Factoring of applications into separate modeling and data sections.<br>
+* Use of defaults and defining sets in the data section.<br>
+*/<br><br>
+
+/* Model  Section */<br><br>
+
+set SOURCES;<br>
+set CUSTOMERS;<br><br>
+
+param Demand {CUSTOMERS} >= 0;<br>
+param Supply {SOURCES}   >= 0;<br>
+param Tcost {CUSTOMERS, SOURCES} default 1000;<br><br>
+
+var x {CUSTOMERS, SOURCES} >= 0;<br><br>
+
+/* Minimize total shipping costs */<br>
+minimize Cost: sum{c in CUSTOMERS, s in SOURCES} Tcost[c,s]*x[c,s];<br><br>
+
+/* Total shipped from each source must be less than source capacity */<br>
+s.t. SRC {s in SOURCES}: sum {c in CUSTOMERS} x[c,s] <= Supply[s];<br><br>
+
+/*  Total received must equal customer demand */<br>
+s.t. DST {c in CUSTOMERS}: sum {s in SOURCES} x[c,s] = Demand[c];<br><br>
+
+solve;<br><br>
+
+data;<br>
+/* <br>
+Problem Data from Chapter 5 of Johannes Bisschop, "AIMMS Optimization Modeling",<br>
+Paragon Decision Sciences, 1999. The following data details supply, demand, and<br>
+shipping costs among a set of 8 European cities<br>
+*/
+<br><br>
+param: CUSTOMERS: Demand :=<br>
+    Lon   125        # London<br>
+    Ber   175        # Berlin<br>
+    Maa   225        # Maastricht<br>
+    Ams   250        # Amsterdam<br>
+    Utr   225        # Utrecht<br>
+    Hag   200 ;      # The Hague<br><br>
+
+param: SOURCES: Supply :=<br>
+    Arn   550        # Arnhem<br>
+    Gou   650 ;      # Gouda<br><br>
+
+param Tcost : Arn   Gou :=<br>
+    Lon        .    2.5<br>
+    Ber       2.5    .<br>
+    Maa       1.6   2.0<br>
+    Ams       1.4   1.0<br>
+    Utr       0.8   1.0<br>
+    Hag       1.4   0.8 ;<br><br> 
+
+end;
+              </div>
+              <div class="modal-footer">
+                <button id="btnCopycode" class="btn btn-success" onclick="copiarExemplo('transportationNetwork')" data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
+                <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
   <!-- container -->
   <div id='container'>
 
@@ -640,28 +1116,18 @@ end;
               </li>
 
               <li class="dropdown-submenu">
-                <a href = '#'>Mixture Problems <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href='#' class="example" id="giapetto">Giapetto's Workshop</a></li>
-                  <li><a href='#' class="example" id="change">Making Change</a></li>
-                </ul>
-              </li>
-
-              <li class="dropdown-submenu">
                 <a href = '#'>Agendameto <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href='#' class="example" id="ProjectCPM">Project Management with CPM</a></li>
-                  <li><a href='#' class="example" id="Bottleneck">Machine Bottleneck</a></li>
-                  <li><a href='#' class="example" id="JobShop">Job Shop Scheduling</a></li>
-                  <li><a href='#' class="example" id="TaskOrder">Linear Ordering of Tasks</a></li>
-                  <li><a href='#' class="example" id="JesuitVols">Jesuit Volunteers Corps</a></li>
+                  <li><a id="projectCPM" onclick="exampleProjectCPM();">Project Management with CPM</a></li>
+                  <li><a id="jobShop" onclick="exampleJobShop();">Job Shop Scheduling</a></li>
+                  <li><a id="JesuitVols" onclick="exampleJesuitVols();">Jesuit Volunteers Corps</a></li>
                 </ul>
               </li>
               
               <li class="dropdown-submenu">
                 <a href = '#'>Transporte e Atribui&ccedil;&otilde;es <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href='#' class="example" id="TransportNet">Transportation Network</a></li>
+                  <li><a id="TransportNet" onclick="exampleTransportationNetwork();">Transportation Network</a></li>
                   <li><a href='#' class="example" id="StockCutting">Stock Cutting</a></li>
                   <li><a href='#' class="example" id="TableSeating">Table Seating</a></li>
                 </ul>
