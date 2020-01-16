@@ -90,7 +90,6 @@ $('#btnModalConfirmClearAll').click(function () {
 $('#menuNew').click(newModel);
 $('#menuOpen').click(openModel);
 $('#menuSave').click(saveModel);
-$('#menuSaveAs').click(saveModelAs);
 
 $(".example").click(function() {
   openExample(exampleDir + fileSep + this.id + ".mod");
@@ -104,6 +103,12 @@ $('#btnNewModel').tooltip();
 $('#btnOpenModel').tooltip();
 $('#btnSaveModel').tooltip();
 $('#btnSolveModel').tooltip();
+
+$(document).ready(function() {
+  $('#btnSolveModel').click(function(){
+      $('#loading-bar-spinner').css('display','block');
+  });
+});
 
 $('#btnNewModel').click( function() {
   isNew = true;
@@ -133,16 +138,16 @@ $('#btnSaveModel').click( function() {
   this.blur();
 });
 $('#btnSolveModel').click( function() {
+
   solveModel();
   this.blur();
-  
+
   var elementos = modelEditor.getValue();
   var result = "";
 
   var out = elementos.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,'')
 
   console.log('teste', out);
-
 });
 
 /**********************************************************************
@@ -243,6 +248,7 @@ function populateName(){
   document.getElementById('modelFileName').value = document.getElementsByName('inputOpenModel[]')[0].files[0].name;
 }
 
+  
 /**
  * Open a model from the external file system
  */
@@ -287,7 +293,11 @@ function saveModel() {
       var text = modelEditor.getValue();//$("#textarea").val();
       var fileName = document.getElementById('modelFileName').value;
       var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
-      saveAs(blob, fileName+".mod");   
+    if(fileName == null || fileName == ""){
+      alert('Favor preencher o nome do arquivo!!');
+    } else {
+      saveAs(blob, fileName+".mod"); 
+    }   
 } 
 
 
@@ -1024,7 +1034,7 @@ function solve() {
   } else {
     throw new MathProgError((isMIP()?'MILP':'LP') + " failed. Consult GLPK Log.");
   }
-
+  
   printLog('\nElapsed time: ' + (Date.now()-tic)/1000 + ' seconds');
   return null;
 }
