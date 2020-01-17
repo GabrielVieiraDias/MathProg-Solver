@@ -207,9 +207,21 @@ function exampleProjectCPM(){
 function exampleJobShop(){
   $('#ModalExampleJobShop').modal({show: true});
 }
+function exampleJesuitVols(){
+  $('#ModalExampleJesuit').modal({show: true});
+}
 function exampleTransportationNetwork(){
   $('#ModalExampleTransportationNetwork').modal({show: true});
 }
+function exampleStockCutting(){
+  $('#ModalExampleStockCutting').modal({show: true});
+}
+function exampleTableSeating(){
+  $('#ModalExampleTableSeating').modal({show: true});
+}
+
+
+
 
 
 
@@ -255,6 +267,14 @@ function copiarExemplo(id){
     document.getElementById('modelFileName').value = "";
     modelEditor.setValue($('#transportationNetwork').text().trim());
     document.getElementById('modelFileName').value = "TransportationNetwork";
+  }else if(id == 'StockCutting'){
+    document.getElementById('modelFileName').value = "";
+    modelEditor.setValue($('#stockCutting').text().trim());
+    document.getElementById('modelFileName').value = "StockCutting";
+  }else if(id == 'tableSeating'){
+    document.getElementById('modelFileName').value = "";
+    modelEditor.setValue($('#tableSeating').text().trim());
+    document.getElementById('modelFileName').value = "TableSeating";
   }
 }
 

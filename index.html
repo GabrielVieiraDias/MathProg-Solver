@@ -1067,6 +1067,230 @@ end;
         </div>
 
 
+      <!-- modal Example -->
+      <div id="ModalExampleStockCutting" class="modal" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+              <div class="modal-header" style="padding-top: 10px;">
+                  <h3>Stock Cutting</h3>
+              </div>
+              <div id="stockCutting" class="modal-body">
+/* # Stock Cutting<br><br>
+
+The stock cutting problem is to minimize the waste associated with cutting up stock<br>
+materials to produce a set of products. Examples of the one dimensional problem include<br>
+cutting lengths of steel bar into a set of products, cutting wide paper rolls into<br>
+smaller ones, and cutting dimensioned lumber to meet the production needs of furniture<br>
+shops.<br><br>
+
+In large scale applications the stock cutting problem begins with a base set of cutting<br>
+patterns. Each cutting pattern breaks a piece of stock into a set of products. The base<br>
+calculation is to find a mix of cutting patterns to meet product requirements. A<br>
+secondary problem is solved to find additional cutting patterns with the potential to<br>
+reduce costs. The solution then proceeds iteratively with new patterns are generated 'on<br>
+the fly' coupled with a branch and bound search to find an optimal solution. This<br>
+approach is called 'column generation.'<br><br>
+
+As demonstrated below, for small scale problems the stock cutting problem can be <br>
+formulated as an assignment of product pieces to stock pieces. For this example the data <br>
+consists of a list of product types, lengths and demand. The example incorporates <br>
+multiple types of raw materials. The objective is to maximize the number of pieces of <br>
+stock material that are left uncut.<br><br>
+
+An aspect of this problem is the high degree of solution symmetry. The number of <br>
+equivalent solutions is a combinatorial function of the number of identical pieces of raw <br>
+of materials. In these cases a solver may quickly find a solution but then need to search <br>
+many equivalent solutions to verify optimality. This example uses a weighted objective to <br>
+separate otherwise equivalent solutions.<br><br>
+
+To repeat, this approach will not work for larger problems due to the excessive number of <br>
+binary variables required and high degree of solution symmetry. Consult the <br>
+<a href="https://code.google.com/p/cspsol/">cspsol project</a> for a solution method using <br>
+column generation and glpk api.<br>
+*/<br><br>
+
+# Products<br>
+set PRODUCTS;<br>
+param pLength{PRODUCTS};<br>
+param demand{PRODUCTS};<br><br>
+
+# Raw Materials<br>
+set RAWMATERIALS;<br>
+param rLength{RAWMATERIALS};<br>
+param avail{RAWMATERIALS};<br><br>
+
+# Big M should be greater than the length of any stock piece<br>
+param bigM;<br>
+check {r in RAWMATERIALS} : bigM > rLength[r];<br><br>
+
+# Create indexed sets enumerating all production pieces<br>
+set Q{p in PRODUCTS} := 1..demand[p] ;<br><br>
+
+# Create indexed sets enumerating all raw material pieces<br>
+set S{r in RAWMATERIALS} := 1..avail[r];<br><br>
+
+# y[p,q,r,s] = 1 assigns (product p, piece q) to (raw material r, piece s)<br>
+var y{p in PRODUCTS, q in Q[p], r in RAWMATERIALS, s in S[r]} binary;<br><br>
+
+# u[r,s] = 1 indicates use of (raw material r, piece s)<br>
+var u{r in RAWMATERIALS, s in S[r]} binary;<br><br>
+
+# w[r,s] is the remainder left over from (raw material r, piece s)<br>
+var w{r in RAWMATERIALS, s in S[r]} >= 0;<br><br>
+
+# Assign product (p,q) only once to the set of all raw materials (r,s)<br>
+s.t. A{p in PRODUCTS, q in Q[p]} : sum{r in RAWMATERIALS, s in S[r]} y[p,q,r,s] = 1;<br><br>
+
+# Cut enough pieces to exactly meet the demand for each product<br>
+s.t. B{p in PRODUCTS} : sum{q in Q[p], r in RAWMATERIALS, s in S[r]} y[p,q,r,s] = demand[p];<br><br>
+
+# Do not exceed the length each piece of raw material<br>
+s.t. C{r in RAWMATERIALS, s in S[r]} : <br>
+    sum{p in PRODUCTS, q in Q[p]} pLength[p]*y[p,q,r,s] + w[r,s] = rLength[r];<br><br>
+    
+# Determine if a piece (r,s) of raw material is used.<br>
+s.t. D{r in RAWMATERIALS, s in S[r]} : bigM*u[r,s] >= sum{p in PRODUCTS, q in Q[p]} y[p,q,r,s];<br><br>
+
+minimize Pieces : sum{r in RAWMATERIALS, s in S[r]} rLength[r]*s*u[r,s];<br><br>
+
+solve;<br><br>
+
+table products {p in PRODUCTS} OUT "JSON" "Products" "Table" : <br>
+    p~Product, pLength[p]~Length, demand[p]~Demand;<br><br>
+
+table rawmaterials {r in RAWMATERIALS} OUT "JSON" "Raw Materials" "Table" : <br>
+    r~Raw_Materials, rLength[r]~Length, avail[r]~Available;<br><br>
+
+printf "Cutting Plan\n";<br>
+for {r in RAWMATERIALS} : {<br>
+    printf "    Raw Material %s \n", r;<br>
+    for {s in S[r]} : {<br>
+        printf "        Piece %s-%d : Remainder = %5.2f : Cut product pieces ", r,s, w[r,s];<br>
+        for {p in PRODUCTS} : {<br>
+            for {q in Q[p] : y[p,q,r,s]} : {<br>
+                printf "%s-%d ", p, q;<br>
+            }<br>
+        }<br>
+        printf "\n";<br>
+    }<br>
+    printf "\n";<br>
+}<br><br>
+
+printf "Production Plan\n";<br>
+for {p in PRODUCTS} : {<br>
+    printf "    Product %s \n", p;<br>
+    for {q in Q[p]} : {<br>
+        printf "        Piece %s-%d : Cut from stock piece ", p, q;<br>
+        for {r in RAWMATERIALS} : {<br>
+            for {s in S[r] : y[p,q,r,s]} : {<br>
+                printf "%s-%d ", r, s;<br>
+            }<br>
+        }<br>
+        printf "\n";<br>
+    }<br>
+    printf "\n";<br>
+}<br><br>
+
+data;<br><br>
+
+param bigM := 20;<br><br>
+
+param: PRODUCTS: pLength demand :=<br>
+        '7m'        7        3<br>
+        '6m'        6        2<br>
+        '4m'        4        6<br>
+        '3m'        3        1 ;<br>
+  
+param: RAWMATERIALS: rLength avail :=<br> 
+        '15m'       15        3<br>
+        '10m'       10        3 ;<br>
+        <br>
+end;<br>
+                </div>
+              <div class="modal-footer">
+                <button id="btnCopycode" class="btn btn-success" onclick="copiarExemplo('StockCutting')" data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
+                <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </div>        
+
+      <!-- modal Example -->
+      <div id="ModalExampleTableSeating" class="modal" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+              <div class="modal-header" style="padding-top: 10px;">
+                  <h3>Table Seating</h3>
+              </div>
+              <div id="tableSeating" class="modal-body">
+/* # Table Seating<br><br>
+
+Problem from the lp_solve listserv, January 12, 2013<br><br>
+
+> I am trying write an integer program to solve the following problem. There are 3n<br>
+> people, who are denoted {a,b,c,...}. There are n tables and 3 people must sit at <br>
+> each table. There is a value associated with each pair sitting at the same table.<br>
+> Person a and person b sitting together is represented by a binary variable<br>
+> a_b and the value of them sitting together is vab.<br><br>
+
+> I want find an allocation of people to tables that maximizes the sum of these values,<br>
+> that is max:+vab*a_b+vac*a_c+vad*a_d+....<br><br>
+
+Be careful. The computational effort required for this prolbem grows<br>
+quickly with N and TABLE_SIZE. Until html 5 worker threads are implemented,<br>
+this may lock up your browser during the lengthy solution.<br>
+*/<br><br>
+
+param N_TABLES := 4;<br>
+param TABLE_SIZE := 3;<br><br>
+
+set TABLES := 1..N_TABLES;<br>
+set PEOPLE := 1..TABLE_SIZE*N_TABLES;<br>
+set PAIRS := {p in PEOPLE, q in PEOPLE : q > p};<br><br>
+
+var x{PEOPLE,TABLES} binary;<br>
+var y{PAIRS} binary;<br><br>
+
+/* Assignment Constraints */<br>
+s.t. TablesAreFull{t in TABLES}: sum{p in PEOPLE} x[p,t] = 3;<br>
+s.t. SOS {p in PEOPLE}: sum{t in TABLES} x[p,t] = 1;<br><br>
+
+/* Who is sitting with whom */<br>
+s.t. W1 {t in TABLES, (p,q) in PAIRS}: y[p,q] >= x[p,t] + x[q,t] - 1;<br>
+s.t. W2 {p in PEOPLE}: <br>
+    (sum{q in 1..(p-1)} y[q,p]) + (sum{q in (p+1)..card(PEOPLE)} y[p,q])<br>
+    = TABLE_SIZE - 1;<br><br>
+
+maximize obj: sum{(p,q) in PAIRS} y[p,q];<br><br>
+
+solve;<br>
+
+printf "Table Assignments\n";<br>
+printf "          ";<br>
+printf {p in PEOPLE}: "  %2d", p;<br>
+printf "\n";<br>
+for {t in TABLES}: {<br>
+    printf "Table(%d): ", t;<br>
+    printf {p in PEOPLE}: "   %d", x[p,t];<br>
+    printf "\n";<br>
+}<br><br>
+
+printf "\nPairings\n";<br>
+for {t in TABLES} : {<br>
+    printf "Table %d : ",t;<br>
+    printf {(p,q) in PAIRS : y[p,q] = 1 && x[p,t] = 1}: " (%2d,%2d) ",p,q;<br>
+    printf "\n";<br>
+}<br><br>
+
+end;<br>                
+                </div>
+              <div class="modal-footer">
+                <button id="btnCopycode" class="btn btn-success" onclick="copiarExemplo('tableSeating')" data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
+                <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </div>   
 
 
   <!-- container -->
@@ -1128,8 +1352,8 @@ end;
                 <a href = '#'>Transporte e Atribui&ccedil;&otilde;es <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a id="TransportNet" onclick="exampleTransportationNetwork();">Transportation Network</a></li>
-                  <li><a href='#' class="example" id="StockCutting">Stock Cutting</a></li>
-                  <li><a href='#' class="example" id="TableSeating">Table Seating</a></li>
+                  <li><a id="StockCutting" onclick="exampleStockCutting();">Stock Cutting</a></li>
+                  <li><a id="TableSeating" onclick="exampleTableSeating();">Table Seating</a></li>
                 </ul>
               </li>
                                     
