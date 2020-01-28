@@ -183,99 +183,145 @@ function newModel() {
 }
 
 
-function exampleHelloWorld(){
-  $('#ModalExampleHelloWorld').modal({show: true});
-}
-function exampleLpTwoVars(){
-  $('#ModalExample2variable').modal({show: true});
-}
-function exampleLinearEqns(){
-  $('#ModalExampleLinearEqns').modal({show: true});
-}
-function exampleSets(){
-  $('#ModalExampleSets').modal({show: true});
-}
-function exempleParametes(){
-  $('#ModalExampleParameters').modal({show: true});
-}
-function exampleChartTools(){
-  $('#ModalExampleChartTools').modal({show: true});
-}
-function exampleProjectCPM(){
-  $('#ModalExampleProjectCPM').modal({show: true});
-}
-function exampleJobShop(){
-  $('#ModalExampleJobShop').modal({show: true});
-}
-function exampleJesuitVols(){
-  $('#ModalExampleJesuit').modal({show: true});
-}
-function exampleTransportationNetwork(){
-  $('#ModalExampleTransportationNetwork').modal({show: true});
-}
-function exampleStockCutting(){
-  $('#ModalExampleStockCutting').modal({show: true});
-}
-function exampleTableSeating(){
-  $('#ModalExampleTableSeating').modal({show: true});
-}
-
-
-
-
-
-
-
 function copiarExemplo(id){
-  if(id == 'helloWorld'){
-    document.getElementById('modelFileName').value = "";
-    modelEditor.setValue($('#helloWorld').text().trim()); 
-    document.getElementById('modelFileName').value = "helloWorld";
-  }else if(id == 'lpTwoVars'){
-    document.getElementById('modelFileName').value = "";
-    modelEditor.setValue($('#lpTwoVars').text().trim());
-    document.getElementById('modelFileName').value = "lpTwoVars";
-  }else if(id == 'linearEqns'){
-    document.getElementById('modelFileName').value = "";
-    modelEditor.setValue($('#linearEqns').text().trim());
-    document.getElementById('modelFileName').value = "linearEqns";
-  }else if(id == 'sets'){
-    document.getElementById('modelFileName').value = "";
-    modelEditor.setValue($('#sets').text().trim());
-    document.getElementById('modelFileName').value = "sets";
-  }else if(id == 'parameters'){
-    document.getElementById('modelFileName').value = "";
-    modelEditor.setValue($('#parameters').text().trim());
-    document.getElementById('modelFileName').value = "parameters";
-  }else if(id == 'chartTools'){
-    document.getElementById('modelFileName').value = "";
-    modelEditor.setValue($('#chartTools').text().trim());
-    document.getElementById('modelFileName').value = "chartTools";
-  }else if(id == 'ProjectCPM'){
-    document.getElementById('modelFileName').value = "";
-    modelEditor.setValue($('#projectCPM').text().trim());
-    document.getElementById('modelFileName').value = "ProjectCPM";
-  }else if(id == 'jobShop'){
-    document.getElementById('modelFileName').value = "";
-    modelEditor.setValue($('#jobShop').text().trim());
-    document.getElementById('modelFileName').value = "jobShop";
-  }else if(id == 'Jesuit'){
-    document.getElementById('modelFileName').value = "";
-    modelEditor.setValue($('#Jesuit').text().trim());
-    document.getElementById('modelFileName').value = "Jesuit";
-  }else if(id == 'transportationNetwork'){
-    document.getElementById('modelFileName').value = "";
-    modelEditor.setValue($('#transportationNetwork').text().trim());
-    document.getElementById('modelFileName').value = "TransportationNetwork";
-  }else if(id == 'StockCutting'){
-    document.getElementById('modelFileName').value = "";
-    modelEditor.setValue($('#stockCutting').text().trim());
-    document.getElementById('modelFileName').value = "StockCutting";
-  }else if(id == 'tableSeating'){
-    document.getElementById('modelFileName').value = "";
-    modelEditor.setValue($('#tableSeating').text().trim());
-    document.getElementById('modelFileName').value = "TableSeating";
-  }
+
+    if(id == 'helloWorld'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#helloWorld').text().trim()); 
+      document.getElementById('modelFileName').value = "helloWorld";
+    }else if(id == 'lpTwoVars'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#lpTwoVars').text().trim());
+      document.getElementById('modelFileName').value = "lpTwoVars";
+    }else if(id == 'linearEqns'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#linearEqns').text().trim());
+      document.getElementById('modelFileName').value = "linearEqns";
+    }else if(id == 'sets'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#sets').text().trim());
+      document.getElementById('modelFileName').value = "sets";
+    }else if(id == 'parameters'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#parameters').text().trim());
+      document.getElementById('modelFileName').value = "parameters";
+    }else if(id == 'chartTools'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#chartTools').text().trim());
+      document.getElementById('modelFileName').value = "chartTools";
+    }else if(id == 'ProjectCPM'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#projectCPM').text().trim());
+      document.getElementById('modelFileName').value = "ProjectCPM";
+    }else if(id == 'jobShop'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#jobShop').text().trim());
+      document.getElementById('modelFileName').value = "jobShop";
+    }else if(id == 'Jesuit'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#Jesuit').text().trim());
+      document.getElementById('modelFileName').value = "Jesuit";
+    }else if(id == 'transportationNetwork'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#transportationNetwork').text().trim());
+      document.getElementById('modelFileName').value = "TransportationNetwork";
+    }else if(id == 'StockCutting'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#stockCutting').text().trim());
+      document.getElementById('modelFileName').value = "StockCutting";
+    }else if(id == 'tableSeating'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#tableSeating').text().trim());
+      document.getElementById('modelFileName').value = "TableSeating";
+    }else if(id == 'vrp'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#vrp').text().trim());
+      document.getElementById('modelFileName').value = "VehicleRoutingProblem";
+    }else if(id == 'tsptw'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#tsptw').text().trim());
+      document.getElementById('modelFileName').value = "TravelingSalesmanProblemWithTimeWindows";
+    }else if(id == 'vrptw'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#vrptw').text().trim());
+      document.getElementById('modelFileName').value = "VehicleRoutingProblemWithTimeWindows";
+    }else if(id == 'theNewsvendorProblem'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#theNewsvendorProblem').text().trim());
+      document.getElementById('modelFileName').value = "TheNewsvendorProblem";
+    }else if(id == 'BPMACO'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#BPMACO').text().trim());
+      document.getElementById('modelFileName').value = "American Call";
+    }else if(id == 'BPMAPO'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#BPMAPO').text().trim());
+      document.getElementById('modelFileName').value = "American Put";
+    }else if(id == 'BPMECO'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#BPMECO').text().trim());
+      document.getElementById('modelFileName').value = "European Call";
+    }else if(id == 'BPMEPO'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#BPMEPO').text().trim());
+      document.getElementById('modelFileName').value = "European Put";
+    }else if(id == 'PoliticalArb'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#PoliticalArb').text().trim());
+      document.getElementById('modelFileName').value = "Political Arb";
+    }else if(id == 'RiskNeutral'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#RiskNeutral').text().trim());
+      document.getElementById('modelFileName').value = "Risk Neutral AI";
+    }else if(id == 'retirement'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#retirement').text().trim());
+      document.getElementById('modelFileName').value = "Saving Retirement";
+    }else if(id == 'Normal'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#normal').text().trim());
+      document.getElementById('modelFileName').value = "Sampling a Multivariate Normal Distribution";
+    }else if(id == 'piecewise'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#piecewise').text().trim());
+      document.getElementById('modelFileName').value = "Piecewise Linear Interpolation";
+    }else if(id == 'Sorting'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#Sorting').text().trim());
+      document.getElementById('modelFileName').value = "Sorting";
+    }else if(id == 'DataReconciliation'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#DataReconciliation').text().trim());
+      document.getElementById('modelFileName').value = "Data Reconciliation";
+    }else if(id == 'solvay'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#solvay').text().trim());
+      document.getElementById('modelFileName').value = "Solvay";
+    }else if(id == 'MAD'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#MAD').text().trim());
+      document.getElementById('modelFileName').value = "Portifolio Optimization MAD";
+    }else if(id == 'PlantExpansion'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#PlantExpansion').text().trim());
+      document.getElementById('modelFileName').value = "Scenario Analysis for a Plant Expansion";
+    }else if(id == 'Gambling'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#Gambling').text().trim());
+      document.getElementById('modelFileName').value = "Stochastic Dynamic Programming: Risk Neutral Gambler";
+    }else if(id == 'RNGambling'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#RNGambling').text().trim());
+      document.getElementById('modelFileName').value = "Stochastic Dynamic Programming: Risk Neutral Gambler";
+    }else if(id == 'RAGambling'){
+      document.getElementById('modelFileName').value = "";
+      modelEditor.setValue($('#RAGambling').text().trim());
+      document.getElementById('modelFileName').value = "Stochastic Dynamic Programming: Risk Averse Gambler";
+    }
+    
+    
+    
+  
 }
 
 

@@ -83,3 +83,7 @@ body {
 	border-bottom: 1px;
 
 }
+.modal-body-example{
+	height: 450px; 
+	overflow: auto;
+}
