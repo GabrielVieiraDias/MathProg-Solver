@@ -371,13 +371,13 @@ function openModel () {
  * Save model to external filesystem
  */
 function saveModel() {
-      var text = modelEditor.getValue();//$("#textarea").val();
+      var text = modelEditor.getValue();
       var fileName = document.getElementById('modelFileName').value;
       var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
-    if(fileName == null || fileName == ""){
+    if(fileName == null || fileName == "" || fileName.trim() == ""){
       alert('Favor preencher o nome do arquivo!!');
     } else {
-      saveAs(blob, fileName+".mod"); 
+      saveAs(blob, fileName.trim()+".mod"); 
     }   
 } 
 
