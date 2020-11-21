@@ -1095,7 +1095,7 @@ function solve() {
   if (isMIP()) {
     printLog('\nInteger optimization ...');
     glp_intopt(lp);
-  }
+  } 
 
   printLog('\nPost-Processing ...');
   if(lp) {
@@ -1105,8 +1105,16 @@ function solve() {
       } else {
         displaySuccess(glpStatus[glp_get_status(lp)]);
       }
-    } else {
-      displayWarning(glpStatus[glp_get_status(lp) + glp_get_status(lp) + GLP_OPT]);
+    } else if (glp_get_status(lp)==GLP_UNDEF) {
+      displayWarning(glpStatus[glp_get_status(lp) + glp_get_status(lp) + GLP_UNDEF]);
+    } else if (glp_get_status(lp)==GLP_NOFEAS) {
+      displayWarning(glpStatus[glp_get_status(lp) + glp_get_status(lp) + GLP_NOFEAS]);
+    } else if (glp_get_status(lp)==GLP_INFEAS) {
+      displayWarning(glpStatus[glp_get_status(lp) + glp_get_status(lp) + GLP_INFEAS]);
+    } else if (glp_get_status(lp)==GLP_FEAS) {
+      displayWarning(glpStatus[glp_get_status(lp) + glp_get_status(lp) + GLP_FEAS]);
+    } else if (glp_get_status(lp)==GLP_UNBND) {
+      displayWarning(glpStatus[glp_get_status(lp) + glp_get_status(lp) + GLP_UNBND]);
     }
     glp_mpl_postsolve(tran,lp,isMIP()?GLP_MIP:GLP_SOL);
     displayDashboard();
