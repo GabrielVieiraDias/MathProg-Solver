@@ -1,5 +1,4 @@
 
-
 table {
 	font-family: monospace;
 	font-size: 10pt;
@@ -186,4 +185,19 @@ td+td {
 
 #instructionContent>blockquote {
 	font-size: 10pt;
+}
+
+pre {
+	font-family: Consolas, Monoco, "Courier New";
+	font-size: 13px;
+	line-height: 1.45em;
+}
+
+.CodeMirror {
+	font-size: 13px;
+	font-family: Consolas, Monaco, "Courier New", monospace;
+	line-height: 1.45em;
+	width: 100%;
+	margin: 0px;
+	border: solid 1px;
 }
