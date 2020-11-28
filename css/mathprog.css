@@ -22,9 +22,87 @@ td+td {
 	display: none;
 }
 
-#container {
-	margin: auto;
-	max-width: auto;
+.model-content {
+	background: #fff; 
+	border-radius:20px;
+}
+
+.modal-content {
+	width: 100%; 
+	background: #fff; 
+	border-radius:20px;
+}
+
+.modal-header {
+	padding-top: 10px;
+}
+
+.container-fluid {
+	background:#003b7b;
+}
+
+.tabbable {
+	width: 100%; 
+	margin-top:0px; 
+	margin-bottom:0px;
+}
+
+.bottom-panel{
+	margin-top:3px; 
+	margin-bottom:3px;
+}
+
+.navbar-brand {
+	color:#ffffff !important;
+}
+
+#dashboardPanel{
+	min-height: 380px;
+}
+
+#dashboardTable {
+	width: 100%;
+}
+
+/* #outputTab {
+	min-height: 380px;
+} */
+
+.tab-pane {
+	min-height: 380px; width: 100%;
+}
+
+#logContent{
+	width: 730px;min-height: 200px;
+}
+
+#divModelFileName {
+	margin-bottom: 10px;
+}
+
+#btnBar {
+	width:100%;
+	margin-top:1px;
+}
+.btn-group {
+	float:left;
+}
+
+#inputOpenModel {
+	display: none;
+}
+
+#btnSolveModel {
+	float: right;
+}
+
+#messagePanel{
+	min-height:38px;
+}
+
+#message {
+	margin-top: 18px; 
+	margin-right: 0px;
 }
 
 #content{
@@ -35,29 +113,6 @@ td+td {
 	padding-right: 20px;
 }
 
-/*
-
-#header {
-}
-#header h1 {
-	margin: 12px;
-}
-#content {
-	clear: left;
-	padding-top: 10px;
-}
-#editor { 
-	font-family: monospace;
-	font-size: 10pt;
-	padding: 10px;
-	position: relative;
-	height: 300px;
-	width: 96%;
-}
-#content h2, h3 {
-	margin: 0.2em 0.2em 0.2em 0em;
-}
-*/
 #footer {
 	text-align: right;
 	padding: 20px;
@@ -102,6 +157,8 @@ body {
 	left: 0;
 	right: 0;
 	overflow: scroll;
+	margin: auto;
+	max-width: auto;
 }
 
 table,
@@ -124,10 +181,6 @@ td+td {
 .exercise {
 	visibility: hidden;
 	display: none;
-}
-
-#container {
-	margin: auto;
 }
 
 #linkTextArea {
@@ -200,4 +253,25 @@ pre {
 	width: 100%;
 	margin: 0px;
 	border: solid 1px;
+}
+
+#btnModalConfirmClearAll {
+	margin-right:10px;
+}
+
+
+#resources-menu {
+	background: #003b7b; color: #dddddd;
+}
+
+#examples-menu {
+	background: #003b7b; color: #dddddd;
+}
+
+#models-menu {
+	background: #003b7b; color: #dddddd;
+}
+
+#menuAbout {
+	background: #003b7b; color: #dddddd;
 }
