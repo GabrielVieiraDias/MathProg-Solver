@@ -3,6 +3,7 @@
 
 <head>
     <meta http-equiv='Content-Type' content='text/html' charset='UTF-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MathProg</title>
     <script src="libs/FileSaver.js-master/src/FileSaver.js"></script>
     <script src="libs/jQuery/2.2.3/jquery-2.2.3.min.js"></script>
@@ -17,7 +18,6 @@
     <script src="libs/CodeMirror/5.13.4/codemirror.min.js"></script>
     <link href="libs/CodeMirror/5.13.4/codemirror.min.css" rel="stylesheet">
     <script src="libs/CodeMirror/codemirror_mathprog.js"></script>
-    <!--<script src="libs/Marked/0.3.5/marked.min.js"></script> -->
     <script src="libs/markdown-it/6.0.1/markdown-it.min.js"></script>
     <link href="libs/KaTeX/0.5.1/katex.min.css" rel="stylesheet">
     <script src="libs/KaTeX/0.5.1/katex.min.js"></script>
@@ -32,8 +32,8 @@
     <!-- modal Sobre... -->
     <div id="modalAbout" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="model-content" style="background: #fff; border-radius:20px;">
-                <div class="modal-header" style="padding-top: 10px;">
+            <div class="model-content">
+                <div class="modal-header">
                     <h3>Sobre...</h3>
                 </div>
                 <div class="modal-body">
@@ -64,8 +64,8 @@
     <!-- modal Confirmar limpeza do editor -->
     <div id="modalConfirmClearAll" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
-                <div class="modal-header" style="padding-top: 10px;">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h3>Existem altera&ccedil;&otilde;es a serem salvas...</h3>
                 </div>
                 <div class="modal-body">
@@ -74,7 +74,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button id='btnModalConfirmClearAll' class="btn" data-dismiss="modal" style='margin-right:10px;'>N&atilde;o salvar altera&ccedil;&otilde;es</button>
+                    <button id='btnModalConfirmClearAll' class="btn" data-dismiss="modal">N&atilde;o salvar altera&ccedil;&otilde;es</button>
                     <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
@@ -85,37 +85,33 @@
     <!-- modal Example -->
     <div id="ModalExampleHelloWorld" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
-                <div class="modal-header" style="padding-top: 10px;">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h3>Hello World</h3>
                 </div>
                 <div id="helloWorld" class="modal-body modal-body-example">
-                    <p>
+<p>
 
-                        <p>/*# Hello, World</p>
+<p>/*# Hello, World</p>
 
-                        <p>This is one of the simplest MathProg models one can write. Thw `printf` statement prints information to the model output. Note the use of `\n` to separate lines of output.
-                        </p>
-                        <p>
-                            * The first statement is a comment. MathProg ignores everything on a line following a hash tag `#` * Every statement ends with a semicolon `;` * The end of model is indicated by the `end;` statement. * There is a final new line following the `end;` statement.
-                        </p>
-                        <p>
-                            Experiment with this simple file. Try adding additional lines of output including blank lines. See what happens if you leave out a needed semicolon or the final `end;` statement.
-                        </p>
-                        On *MathProg Solver* you will find the output under the tab labelled Output. */
+<p>This is one of the simplest MathProg models one can write. Thw `printf` statement prints information to the model output. Note the use of `\n` to separate lines of output.
+</p>
+<p>
+    * The first statement is a comment. MathProg ignores everything on a line following a hash tag `#` * Every statement ends with a semicolon `;` * The end of model is indicated by the `end;` statement. * There is a final new line following the `end;` statement.
+</p>
+<p>
+    Experiment with this simple file. Try adding additional lines of output including blank lines. See what happens if you leave out a needed semicolon or the final `end;` statement.
+</p>
+On *MathProg Solver* you will find the output under the tab labelled Output. */
 
-                        <p><b>
-  printf "Hello, World!\n";
-  <p>end;</p>
+<p>
+printf "Hello, World!\n";
+<p>end;</p>
   
-</b>
                         </p>
                     </p>
                 </div>
-                <div class="modal-footer">
-                    <button id='btnCopycode' class="btn btn-success" onclick="copiarExemplo('helloWorld')" data-dismiss="modal" style='margin-right:10px;'>Copiar</button>
-                    <button class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -124,7 +120,7 @@
     <!-- modal Example -->
     <div id="ModalExample2variable" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="lpTwoVars" class="modal-body modal-body-example">
                     <p>/*# Linear Program in Two Variables</p>
 
@@ -167,7 +163,7 @@ solve;<br>
     <!-- modal Example -->
     <div id="ModalExampleLinearEqns" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="linearEqns" class="modal-body modal-body-example">
 <p>/* # Solving a System of Linear Equations MathProg is a language for describing linear and discrete optimization problems. A series of exercises described below will introduce MathProg by demonstrating how to solve to small system
 of linear equations. Consider a set of three linear equations
@@ -232,7 +228,7 @@ end;<br>
     <!-- modal Example -->
     <div id="ModalExampleSets" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="sets" class="modal-body modal-body-example">
 <p>/* # Set Operations in MathProg</p>
 
@@ -293,7 +289,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleParameters" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="parameters" class="modal-body modal-body-example">
 <p>/* # Working with Parameters */</p>
 
@@ -355,7 +351,7 @@ Francine    0  1  1  0 ;
     <!-- modal Example -->
     <div id="ModalExampleChartTools" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="chartTools" class="modal-body modal-body-example">
 /* # Chart Tools
 
@@ -472,7 +468,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleProjectCPM" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="projectCPM" class="modal-body modal-body-example">
 /* # Project Management with the Critical Path Method
 
@@ -617,7 +613,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleJobShop" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="jobShop" class="modal-body modal-body-example">
 /* # Job Shop Scheduling
 
@@ -742,7 +738,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleJesuit" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="Jesuit" class="modal-body modal-body-example">/* # Jesuit Volunteer Corps
 
 The following problem was formulated by Tomas C. (ND '09) who was working with 
@@ -841,7 +837,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleTransportationNetwork" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="transportationNetwork" class="modal-body modal-body-example">
 /* # Transportation Network
 
@@ -914,7 +910,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleStockCutting" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="stockCutting" class="modal-body modal-body-example">
                     /* # Stock Cutting
 
@@ -1056,7 +1052,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleTableSeating" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="tableSeating" class="modal-body modal-body-example">
 /* # Table Seating
 
@@ -1126,7 +1122,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleTSPTW" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="tsptw" class="modal-body modal-body-example">
 /* # Traveling Salesman Problem with Time Windows */
 
@@ -1237,7 +1233,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleVRP" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="vrp" class="modal-body modal-body-example"><br> /* # Vehicle Routing Problem
 /* # Vehicle Routing Problem
 
@@ -1425,7 +1421,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleVRPTW" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="vrptw" class="modal-body modal-body-example">
 /* # Vehicle Routing Problem with Time Windows
 
@@ -1689,7 +1685,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleTheNewsvendorProblem" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="theNewsvendorProblem" class="modal-body modal-body-example">
                    /* # The Newsvendor Problem
 
@@ -1833,7 +1829,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleBPMACO" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="BPMACO" class="modal-body modal-body-example">
                     /* # Binomial Pricing Model for an American Call Option
 
@@ -1908,7 +1904,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleBPMAPO" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="BPMAPO" class="modal-body modal-body-example">
                     /* # Binomial Pricing Model for an American Put Option
 
@@ -1984,7 +1980,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleBPMECO" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="BPMECO" class="modal-body modal-body-example">
                     /* # Binomial Pricing Model for a European Call Option
 
@@ -2055,7 +2051,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleBPMEPO" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="BPMEPO" class="modal-body modal-body-example">
 /* # Binomial Pricing Model for a European Put Option
 
@@ -2127,7 +2123,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExamplePolitical" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="PoliticalArb" class="modal-body modal-body-example">
                 /* # Arbitrage in Political Prediction Markets
 
@@ -2208,7 +2204,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleRiskNeutral" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content>
                 <div id="RiskNeutral" class="modal-body modal-body-example">
                    /* # Risk Neutral Analysis for _American Idol_
 
@@ -2380,7 +2376,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleSavingRetirement" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+            <div class="modal-content">
                 <div id="retirement" class="modal-body modal-body-example">
                    /* # Saving for Retirement
 
@@ -2488,7 +2484,7 @@ end;
         <!-- modal Example -->
         <div id="ModalExampleNormal" class="modal" role="dialog">
             <div class="modal-dialog">
-                <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+                <div class="modal-content">
                     <div id="normal" class="modal-body modal-body-example">
 /*  # Generating Random Numbers for a Multivariate Normal Distribution
 
@@ -2596,7 +2592,7 @@ end;
         <!-- modal Example -->
         <div id="ModalExamplePiecewise" class="modal" role="dialog">
             <div class="modal-dialog">
-                <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+                <div class="modal-content">
                     <div id="piecewise" class="modal-body modal-body-example">
 /* # Piecewise Linear Interpolation
 
@@ -2656,7 +2652,7 @@ end;
             <!-- modal Example -->
             <div id="ModalExampleSorting" class="modal" role="dialog">
                 <div class="modal-dialog">
-                    <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+                    <div class="modal-content">
                         <div id="Sorting" class="modal-body modal-body-example">
 /* # Sorting in MathProg
 
@@ -2737,7 +2733,7 @@ end;
             <!-- modal Example -->
             <div id="ModalExampleDataReconciliation" class="modal" role="dialog">
                 <div class="modal-dialog">
-                    <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+                    <div class="modal-content">
                         <div id="DataReconciliation" class="modal-body modal-body-example">
 /* # Data Reconciliation and Gross Error Detection
 
@@ -2865,7 +2861,7 @@ end;</div>
                 <!-- modal Example -->
                 <div id="ModalExampleSolvay" class="modal" role="dialog">
                     <div class="modal-dialog">
-                        <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+                        <div class="modal-content">
                             <div id="solvay" class="modal-body modal-body-example">
 /* # Generation-Consumption Analysis of the Solvay Process
  
@@ -3022,7 +3018,7 @@ end;</div>
                     <!-- modal Example -->
                     <div id="ModalExampleMAD" class="modal" role="dialog">
                         <div class="modal-dialog">
-                            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+                            <div class="modal-content">
                                 <div id="MAD" class="modal-body modal-body-example">
 /* # Portfolio Optimization using Mean Absolute Deviation
 
@@ -3176,7 +3172,7 @@ end;
                     <!-- modal Example -->
                     <div id="ModalExamplePlantExpansion" class="modal" role="dialog">
                         <div class="modal-dialog">
-                            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+                            <div class="modal-content">
                                 <div id="PlantExpansion" class="modal-body modal-body-example">
 /* # Scenario Analysis for a Plant Expansion
 
@@ -3248,7 +3244,7 @@ end;
                     <!-- modal Example -->
                     <div id="ModalExampleGambling" class="modal" role="dialog">
                         <div class="modal-dialog">
-                            <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+                            <div class="modal-content">
                                 <div id="RNGambling" class="modal-body modal-body-example">
                                     /*
 ## Stochastic Dynamic Programming: Risk Neutral Gambler
@@ -3355,7 +3351,7 @@ end;
                         <!-- modal Example -->
                         <div id="ModalExampleRAGambling" class="modal" role="dialog">
                             <div class="modal-dialog">
-                                <div class="modal-content" style="width: 100%; background: #fff; border-radius:20px;">
+                                <div class="modal-content">
                                     <div id="RAGambling" class="modal-body modal-body-example">
                                      /* # Stochastic Dynamic Programming: The Risk Averse Gambler
 
@@ -3470,16 +3466,16 @@ end;
                             <div id='container'>
 
                                 <!-- Navigation Menu Bar -->
-                                <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-                                    <div class="container-fluid" style="background:#003b7b;">
+                                <nav class="navbar navbar-default" role="navigation">
+                                    <div class="container-fluid">
                                         <div class="navbar-header">
-                                            <a class="navbar-brand" href="#" style="color:#ffffff;">Solver MathProg</a>
+                                            <a class="navbar-brand" href="#">Solver MathProg</a>
                                         </div>
 
                                         <!-- Models menu -->
                                         <ul class="nav navbar-nav">
                                             <li class="dropdown">
-                                                <a href="#" style="background: #003b7b; color: #dddddd;">Modelo <span class="caret"></span></a>
+                                                <a href="#" id="models-menu">Modelo <span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
                                                     <li><a href="#" id="menuNew" onclick="document.getElementById('btnNewModel').click()">Novo</a></li>
                                                     <li><a href="#" id="menuOpen" onclick="document.getElementById('btnOpenModel').click()">Abrir ...</a></li>
@@ -3491,7 +3487,7 @@ end;
                                         <!-- Examples menu -->
                                         <ul class="nav navbar-nav">
                                             <li class="dropdown">
-                                                <a href="#" style="background:#003b7b;color: #dddddd;">Exemplos <span class="caret"></span></a>
+                                                <a href="#" id="examples-menu">Exemplos <span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
 
                                                     <li class="dropdown-submenu">
@@ -3561,13 +3557,13 @@ end;
                                                         <a href='#'>Finan&ccedil;as <span class="caret"></span></a>
                                                         <ul class="dropdown-menu">
                                                             <li><a id="retir" onclick="copiarExemplo('retirement');">Poupança para a Aposentadoria</a></li>
-                                                            <li><a id="PortfolioMAD" onclick="copiarExemplo('MAD');">Otimização de portfólio (MAD)</a></li>
+                                                            <li><a id="PortfolioMAD" onclick="copiarExemplo('MAD');">Otimização de Portfólio (MAD)</a></li>
                                                             <li><a id="AmericanCall" onclick="copiarExemplo('BPMACO');">Opção de Compra Americana</a></li>
                                                             <li><a id="AmericanPut" onclick="copiarExemplo('BPMAPO');">Opção de Venda Americana</a></li>
-                                                            <li><a id="EuropeanCall" onclick="copiarExemplo('BPMECO');">Opção de Venda Europeia</a></li>
+                                                            <li><a id="EuropeanCall" onclick="copiarExemplo('BPMECO');">Opção de Compra Europeia</a></li>
                                                             <li><a id="EuropeanPut" onclick="copiarExemplo('BPMEPO');">Opção de Venda Europeia</a></li>
                                                             <li><a id="Political" onclick="copiarExemplo('PoliticalArb');">Arbitragem em Mercados Políticos</a></li>
-                                                            <li><a id="RiskNeutralAI" onclick="copiarExemplo('RiskNeutral');">Probabilidades de Risco Neutro para Ídolo Americano</a></li>
+                                                            <li><a id="RiskNeutralAI" onclick="copiarExemplo('RiskNeutral');">Probabilidades de Risco Neutro para American Idol</a></li>
                                                         </ul>
                                                     </li>
 
@@ -3588,7 +3584,7 @@ end;
                                         <!-- MathProg Resources menu -->
                                         <ul class="nav navbar-nav">
                                             <li class="dropdown">
-                                                <a href="#" style="background: #003b7b; color: #dddddd;">Recursos <span class="caret"></span></a>
+                                                <a href="#" id="resources-menu">Recursos <span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
                                                     <li><a rel="external" href='https://github.com/jckantor/MathProg-Solver/blob/master/libs/glpk-4.60/doc/gmpl.pdf'>Projeto Original - GNU MathProg</a></li>
                                                     <li><a rel="external" href='http://en.wikibooks.org/wiki/GLPK/GMPL_(MathProg)'>Wiki MathProg</a></li>
@@ -3601,7 +3597,7 @@ end;
                                         <!-- Sobre ... menu -->
                                         <ul class="nav navbar-nav">
                                             <li class="active">
-                                                <a id='menuAbout' href="#" style="background: #003b7b; color: #dddddd;">Sobre</a>
+                                                <a id='menuAbout' href="#">Sobre</a>
                                             </li>
                                         </ul>
 
@@ -3610,67 +3606,63 @@ end;
                                 </nav>
                                 <!-- /.navbar-->
 
-                                <div id='content' style="padding-top: 40px;">
-
-                                    <!-- Instruction -->
-                                    <div id='instructionContent' style="padding-top: 1px;"></div>
-                                    <br>
+                                <div id='content'>
 
                                     <!-- Model Editor -->
-                                    <div style="margin-bottom: 10px;">
+                                    <div id='divModelFileName'>
                                         <h4>Nome do arquivo</h4>
                                         <input type="text" id='modelFileName' class="NomeArquivo"></input>
                                     </div>
                                     <textarea id='editor'></textarea><br>
 
                                     <!-- Button Bar -->
-                                    <div id='btnBar' style='width:100%;margin-top:1px;'>
-                                        <div class="btn-group" style="float:left;">
+                                    <div id='btnBar'>
+                                        <div class="btn-group">
                                             <button class="btn btn-primary bordaRedonda" id='btnNewModel' title='Limpar alterações e cria um novo modelo.'>Novo Modelo</button>
                                             <button class="btn btn-primary bordaRedonda" id='btnOpenModel' title='Abrir modelo de um arquivo.'>Abrir Modelo...</button>
-                                            <input type="file" style="display: none;" id="inputOpenModel" name="inputOpenModel[]">
+                                            <input type="file" id="inputOpenModel" name="inputOpenModel[]">
                                             <button class="btn btn-primary bordaRedonda" id='btnSaveModel' title='Salvar modelo em um arquivo.'>Salvar Modelo...</button>
                                         </div>
-                                        <button class="btn btn-success" id='btnSolveModel' style='float: right;' title='Calcular uma solução para o modelo.'>Resolver</button>
+                                        <button class="btn btn-success" id='btnSolveModel' title='Calcular uma solução para o modelo.'>Resolver</button>
                                     </div>
                                     <br>
 
                                     <!-- Message Panel -->
-                                    <div id="messagePanel" style="min-height:38px;">
-                                        <div id="message" class="alert" style="margin-top: 18px; margin-right: 0px;"></div>
+                                    <div id="messagePanel">
+                                        <div id="message" class="alert"></div>
                                     </div>
 
                                     <!-- Output Tabs -->
-                                    <div class="tabbable" style="width: 100%; margin-top:0px; margin-bottom:0px;">
+                                    <div class="tabbable">
                                         <ul class="nav nav-tabs">
                                             <li class="active">
                                                 <a href="#tab1" data-toggle="tab">
-                                                    <h4 style="margin-top:3px; margin-bottom:3px;">Painel de Controle</h4>
+                                                    <h4 class="bottom-panel">Painel de Controle</h4>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#outputTab" data-toggle="tab">
-                                                    <h4 style="margin-top:3px; margin-bottom:3px;">Sa&iacute;da</h4>
+                                                    <h4 class="bottom-panel">Sa&iacute;da</h4>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#dataTab" data-toggle="tab">
-                                                    <h4 style="margin-top:3px; margin-bottom:3px;">Dados</h4>
+                                                    <h4 class="bottom-panel">Dados</h4>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#variableTab" data-toggle="tab">
-                                                    <h4 style="margin-top:3px; margin-bottom:3px;">Vari&aacute;veis</h4>
+                                                    <h4 class="bottom-panel">Vari&aacute;veis</h4>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#constraintTab" data-toggle="tab">
-                                                    <h4 style="margin-top:3px; margin-bottom:3px;">Restri&ccedil;&otilde;es</h4>
+                                                    <h4 class="bottom-panel">Restri&ccedil;&otilde;es</h4>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#tab5" data-toggle="tab">
-                                                    <h4 style="margin-top:3px; margin-bottom:3px;">Registros</h4>
+                                                    <h4 class="bottom-panel">Registros</h4>
                                                 </a>
                                             </li>
                                         </ul>
@@ -3679,8 +3671,8 @@ end;
 
                                             <!-- Dashboard Pane -->
                                             <div class="tab-pane active" id="tab1">
-                                                <div id='dashboardPanel' style="min-height: 380px;">
-                                                    <table id='dashboardTable' class="table table-condensed table-bordered table-hover" style="width: 100%">
+                                                <div id='dashboardPanel'>
+                                                    <table id='dashboardTable' class="table table-condensed table-bordered table-hover">
                                                         <tr>
                                                             <td>Tipo de Problema</td>
                                                             <td id="dashboardProb" class="dashboardCell"></td>
@@ -3722,24 +3714,24 @@ end;
                                             </div>
 
                                             <!-- Model Output Pane -->
-                                            <div class="tab-pane" id="outputTab" style="min-height: 380px;"></div>
+                                            <div class="tab-pane" id="outputTab"></div>
 
                                             <!-- Data Sources Pane -->
-                                            <div class="tab-pane" id="dataTab" style="min-height: 380px;"></div>
+                                            <div class="tab-pane" id="dataTab"></div>
 
                                             <!-- Variables Pane -->
-                                            <div class="tab-pane" id="variableTab" style="min-height: 380px; width: 100%;">
+                                            <div class="tab-pane" id="variableTab">
                                                 <table class="table table-striped table-condensed" id="variableTableDiv"></table>
                                             </div>
 
                                             <!-- Constraints Pane -->
-                                            <div class="tab-pane" id="constraintTab" style="min-height: 380px; width: 100%;">
+                                            <div class="tab-pane" id="constraintTab">
                                                 <table class="table table-striped table-condensed" id="constraintTableDiv"></table>
                                             </div>
 
                                             <!-- GLPK Log Pane-->
-                                            <div class="tab-pane" id="tab5" style="min-height: 380px;">
-                                                <pre id='logContent' style="width: 730px;min-height: 200px;"></pre><br>
+                                            <div class="tab-pane" id="tab5">
+                                                <pre id='logContent'></pre><br>
                                             </div>
 
                                         </div>
