@@ -188,135 +188,135 @@ function copiarExemplo(id){
     if(id == 'helloWorld'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#helloWorld').text().trim()); 
-      document.getElementById('modelFileName').value = "helloWorld";
+      document.getElementById('modelFileName').value = "OlaMundo";
     }else if(id == 'lpTwoVars'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#lpTwoVars').text().trim());
-      document.getElementById('modelFileName').value = "lpTwoVars";
+      document.getElementById('modelFileName').value = "DuasVariaveis";
     }else if(id == 'linearEqns'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#linearEqns').text().trim());
-      document.getElementById('modelFileName').value = "linearEqns";
+      document.getElementById('modelFileName').value = "EquLineares";
     }else if(id == 'sets'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#sets').text().trim());
-      document.getElementById('modelFileName').value = "sets";
+      document.getElementById('modelFileName').value = "Conjuntos";
     }else if(id == 'parameters'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#parameters').text().trim());
-      document.getElementById('modelFileName').value = "parameters";
+      document.getElementById('modelFileName').value = "Parametros";
     }else if(id == 'chartTools'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#chartTools').text().trim());
-      document.getElementById('modelFileName').value = "chartTools";
+      document.getElementById('modelFileName').value = "GraficosGoogle";
     }else if(id == 'ProjectCPM'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#projectCPM').text().trim());
-      document.getElementById('modelFileName').value = "ProjectCPM";
+      document.getElementById('modelFileName').value = "ProjetoCPM";
     }else if(id == 'jobShop'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#jobShop').text().trim());
-      document.getElementById('modelFileName').value = "jobShop";
+      document.getElementById('modelFileName').value = "EscalaLoja";
     }else if(id == 'Jesuit'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#Jesuit').text().trim());
-      document.getElementById('modelFileName').value = "Jesuit";
+      document.getElementById('modelFileName').value = "Jesuitas";
     }else if(id == 'transportationNetwork'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#transportationNetwork').text().trim());
-      document.getElementById('modelFileName').value = "TransportationNetwork";
+      document.getElementById('modelFileName').value = "RedeTransporte";
     }else if(id == 'StockCutting'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#stockCutting').text().trim());
-      document.getElementById('modelFileName').value = "StockCutting";
+      document.getElementById('modelFileName').value = "ReduçãoEstoque";
     }else if(id == 'tableSeating'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#tableSeating').text().trim());
-      document.getElementById('modelFileName').value = "TableSeating";
+      document.getElementById('modelFileName').value = "LugaresMesa";
     }else if(id == 'vrp'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#vrp').text().trim());
-      document.getElementById('modelFileName').value = "VehicleRoutingProblem";
+      document.getElementById('modelFileName').value = "RoteamentoVeiculo";
     }else if(id == 'tsptw'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#tsptw').text().trim());
-      document.getElementById('modelFileName').value = "TravelingSalesmanProblemWithTimeWindows";
+      document.getElementById('modelFileName').value = "CaixeiroViajante";
     }else if(id == 'vrptw'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#vrptw').text().trim());
-      document.getElementById('modelFileName').value = "VehicleRoutingProblemWithTimeWindows";
+      document.getElementById('modelFileName').value = "TempoRotaVeiculo";
     }else if(id == 'theNewsvendorProblem'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#theNewsvendorProblem').text().trim());
-      document.getElementById('modelFileName').value = "TheNewsvendorProblem";
+      document.getElementById('modelFileName').value = "ProblemaVendedor";
     }else if(id == 'BPMACO'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#BPMACO').text().trim());
-      document.getElementById('modelFileName').value = "American Call";
+      document.getElementById('modelFileName').value = "OpcaoCompraAmerica";
     }else if(id == 'BPMAPO'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#BPMAPO').text().trim());
-      document.getElementById('modelFileName').value = "American Put";
+      document.getElementById('modelFileName').value = "OpcaoVendaAmerica";
     }else if(id == 'BPMECO'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#BPMECO').text().trim());
-      document.getElementById('modelFileName').value = "European Call";
+      document.getElementById('modelFileName').value = "OpcaoCompraEuropeia";
     }else if(id == 'BPMEPO'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#BPMEPO').text().trim());
-      document.getElementById('modelFileName').value = "European Put";
+      document.getElementById('modelFileName').value = "OpcaoVendaEuropeia";
     }else if(id == 'PoliticalArb'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#PoliticalArb').text().trim());
-      document.getElementById('modelFileName').value = "Political Arb";
+      document.getElementById('modelFileName').value = "MercadosPoliticos";
     }else if(id == 'RiskNeutral'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#RiskNeutral').text().trim());
-      document.getElementById('modelFileName').value = "Risk Neutral AI";
+      document.getElementById('modelFileName').value = "RiscoNeutroAI";
     }else if(id == 'retirement'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#retirement').text().trim());
-      document.getElementById('modelFileName').value = "Saving Retirement";
+      document.getElementById('modelFileName').value = "PoupançaAposentadoria";
     }else if(id == 'Normal'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#normal').text().trim());
-      document.getElementById('modelFileName').value = "Sampling a Multivariate Normal Distribution";
+      document.getElementById('modelFileName').value = "DistribuicaoNormalMulti";
     }else if(id == 'piecewise'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#piecewise').text().trim());
-      document.getElementById('modelFileName').value = "Piecewise Linear Interpolation";
+      document.getElementById('modelFileName').value = "InterpolacaoLinearPorPartes";
     }else if(id == 'Sorting'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#Sorting').text().trim());
-      document.getElementById('modelFileName').value = "Sorting";
+      document.getElementById('modelFileName').value = "Ordenação";
     }else if(id == 'DataReconciliation'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#DataReconciliation').text().trim());
-      document.getElementById('modelFileName').value = "Data Reconciliation";
+      document.getElementById('modelFileName').value = "ReconciliacaoDados";
     }else if(id == 'solvay'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#solvay').text().trim());
-      document.getElementById('modelFileName').value = "Solvay";
+      document.getElementById('modelFileName').value = "GeracaoConsumo";
     }else if(id == 'MAD'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#MAD').text().trim());
-      document.getElementById('modelFileName').value = "Portifolio Optimization MAD";
+      document.getElementById('modelFileName').value = "OtimizacaoPortifolioMAD";
     }else if(id == 'PlantExpansion'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#PlantExpansion').text().trim());
-      document.getElementById('modelFileName').value = "Scenario Analysis for a Plant Expansion";
+      document.getElementById('modelFileName').value = "ExpansaoFabrica";
     }else if(id == 'Gambling'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#Gambling').text().trim());
-      document.getElementById('modelFileName').value = "Stochastic Dynamic Programming: Risk Neutral Gambler";
+      document.getElementById('modelFileName').value = "SDPJogadorNeutro";
     }else if(id == 'RNGambling'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#RNGambling').text().trim());
-      document.getElementById('modelFileName').value = "Stochastic Dynamic Programming: Risk Neutral Gambler";
+      document.getElementById('modelFileName').value = "SDPJogadorNeutro";
     }else if(id == 'RAGambling'){
       document.getElementById('modelFileName').value = "";
       modelEditor.setValue($('#RAGambling').text().trim());
-      document.getElementById('modelFileName').value = "Stochastic Dynamic Programming: Risk Averse Gambler";
+      document.getElementById('modelFileName').value = "SDPJogadorAverso";
     }
     
     
