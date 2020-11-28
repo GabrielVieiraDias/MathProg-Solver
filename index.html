@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 
 <head>
-    <meta http-equiv='Content-Type' content='text/html' charset='UTF-8' />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MathProg</title>
     <script src="libs/FileSaver.js-master/src/FileSaver.js"></script>
@@ -108,8 +108,7 @@ On *MathProg Solver* you will find the output under the tab labelled Output. */
 printf "Hello, World!\n";
 <p>end;</p>
   
-                        </p>
-                    </p>
+                       
                 </div>
                 
             </div>
@@ -137,11 +136,10 @@ The maximum value of \\(z\\) is 34. What are the corresponding values of \\(x\\)
 var x;<br> var y;
 </p>
 <p>
-<b>
 # Define Constraints
-s.t. A: x + 2*y <= 14;<br>
+s.t. A: x + 2*y &lt;= 14;<br>
 s.t. B: 3*x - y >= 0;<br>
-s.t. C: x - y <= 2;<br>
+s.t. C: x - y &lt;= 2;<br>
 
 # Define Objective<br>
 maximize z: 3*x + 4*y;<br>
@@ -149,10 +147,8 @@ maximize z: 3*x + 4*y;<br>
 # Solve<br>
 solve;<br>
 
-<p>end;</p>
+end;
 
-  </b>
-                    </p>
                     </p>
                 </div>
             </div>
@@ -218,7 +214,6 @@ end;<br>
 
 </b>
                     </p>
-                    </p>
                 </div>
             </div>
         </div>
@@ -278,7 +273,6 @@ for {pet in SAFE} printf "%4s ",pet;<br>
 printf "\n\n";<br>
 end;
 </b>
-                    </p>
                     </p>
                 </div>
             </div>
@@ -341,7 +335,6 @@ Francine    0  1  1  0 ;
 <br><br> end;
 
 <br>
-</p>
 </p>
                 </div>
             </div>
@@ -509,8 +502,8 @@ var Tf >= 0;
 minimize ProjectFinish : card(TASKS)*Tf - sum {j in TASKS} Tsl[j];
 
 /* Finish is the least upper bound on the finish time for all tasks */
-s.t. Efnsh {j in TASKS} : Tef[j] <= Tf;
-s.t. Lfnsh {j in TASKS} : Tlf[j] <= Tf;
+s.t. Efnsh {j in TASKS} : Tef[j] &lt;= Tf;
+s.t. Lfnsh {j in TASKS} : Tlf[j] &lt;= Tf;
 
 /* Relationship between start and finish times for each task */
 s.t. Estrt {j in TASKS} : Tef[j] = Tes[j] + dur[j];
@@ -520,8 +513,8 @@ s.t. Lstrt {j in TASKS} : Tlf[j] = Tls[j] + dur[j];
 s.t. Slack {j in TASKS} : Tsl[j] = Tls[j] - Tes[j];
 
 /* Task ordering */
-s.t. Eordr {(i,j) in ARCS} : Tef[i] <= Tes[j];
-s.t. Lordr {(j,k) in ARCS} : Tlf[j] <= Tls[k];
+s.t. Eordr {(i,j) in ARCS} : Tef[i] &lt;= Tes[j];
+s.t. Lordr {(j,k) in ARCS} : Tlf[j] &lt;= Tls[k];
 
 /* Compute Solution  */
 solve;
@@ -533,7 +526,7 @@ printf 'PROJECT LENGTH = %8g\n',Tf;
 
 /* Rank-order tasks on the critical path by earliest start time */
 param r{j in TASKS : Tsl[j] = 0} := sum{k in TASKS : Tsl[k] = 0}
-    if (Tes[k] <= Tes[j]) then 1;
+    if (Tes[k] &lt;= Tes[j]) then 1;
 
 printf '\nCRITICAL PATH\n';
 printf '    TASK    DUR     Start    Finish\n';
@@ -544,7 +537,7 @@ printf {k in 1..card(TASKS), j in TASKS : Tsl[j]=0 && k==r[j]}
 
 /* Rank-order tasks not on the critical path by earliest start time */
 param s{j in TASKS : Tsl[j] > 0} := sum{k in TASKS : Tsl[k] = 0}
-    if (Tes[k] <= Tes[j]) then 1;
+    if (Tes[k] &lt;= Tes[j]) then 1;
 
 printf '\nNON-CRITICAL TASKS\n';
 printf '                 Earliest  Earliest    Latest    Latest \n';
@@ -652,18 +645,18 @@ objective of starting tasks as early as possible */
 minimize OBJ: BigM*makespan + sum{(j,m) in TASKS} start[j,m];
 
 /* By definition, all jobs must be completed within the makespan */
-s.t. A {(j,m) in TASKS}: start[j,m] + dur[j,m] <= makespan;
+s.t. A {(j,m) in TASKS}: start[j,m] + dur[j,m] &lt;= makespan;
 
 /* Must satisfy any orderings that were given for the tasks. */
-s.t. B {(k,n,j,m) in TASKORDER}: start[k,n] + dur[k,n] <= start[j,m];
+s.t. B {(k,n,j,m) in TASKORDER}: start[k,n] + dur[k,n] &lt;= start[j,m];
 
 /* Eliminate conflicts if tasks are require the same machine */
 /* y[i,m,j] = 1 if Job i is scheduled before job j on machine m*/
-var y{(i,m) in TASKS,(j,m) in TASKS: i < j} binary;
-s.t. C {(i,m) in TASKS,(j,m) in TASKS: i < j}:
-    start[i,m] + dur[i,m] <= start[j,m] + BigM*(1-y[i,m,j]);
-s.t. D {(i,m) in TASKS,(j,m) in TASKS: i < j}:
-    start[j,m] + dur[j,m] <= start[i,m] + BigM*y[i,m,j];
+var y{(i,m) in TASKS,(j,m) in TASKS: i &lt; j} binary;
+s.t. C {(i,m) in TASKS,(j,m) in TASKS: i &lt; j}:
+    start[i,m] + dur[i,m] &lt;= start[j,m] + BigM*(1-y[i,m,j]);
+s.t. D {(i,m) in TASKS,(j,m) in TASKS: i &lt; j}:
+    start[j,m] + dur[j,m] &lt;= start[i,m] + BigM*y[i,m,j];
 
 solve;
 
@@ -681,7 +674,7 @@ printf {(i,m) in TASKS} "%8s  %8s   %5.2f   %5.2f   %5.2f\n",
 /* Schedule of activities for each job */
 set M{j in JOBS} := setof {(j,m) in TASKS} m;
 param r{j in JOBS, m in M[j]} := 
-    1+sum{n in M[j]: start[j,n] < start[j,m] || start[j,n]==start[j,m] && n < m} 1;
+    1+sum{n in M[j]: start[j,n] &lt; start[j,m] || start[j,n]==start[j,m] && n &lt; m} 1;
 printf "\n\n           JOB SCHEDULES\n";
 for {j in JOBS} {
     printf "\n%s:\n",j;
@@ -693,7 +686,7 @@ for {j in JOBS} {
 /* Schedule of activities for each machine */
 set J{m in MACHINES} := setof {(j,m) in TASKS} j;
 param s{m in MACHINES, j in J[m]} := 
-    1+sum{k in J[m]: start[k,m] < start[j,m] || start[k,m]==start[j,m] && k < j} 1;
+    1+sum{k in J[m]: start[k,m] &lt; start[j,m] || start[k,m]==start[j,m] && k &lt; j} 1;
 printf "\n\n         MACHINE SCHEDULES\n";
 for {m in MACHINES} {
     printf "\n%s:\n",m;
@@ -769,7 +762,7 @@ set TASKS := {'Kitchen', 'Bathroom', 'Commons', 'Trash'};
 set WEEKS := 1..T;
 
 /* Compute all pairs of volunteers */
-set PAIRS := setof{u in VOLS, v in VOLS: u < v} (u,v);
+set PAIRS := setof{u in VOLS, v in VOLS: u &lt; v} (u,v);
 
 /* x[v,t,w] = 1 if volunteer v is assigned task t in week w */
 var x{v in VOLS, t in TASKS, w in WEEKS} binary;
@@ -787,17 +780,17 @@ s.t. fa{v in VOLS, w in WEEKS}: sum {t in TASKS} x[v,t,w] = 1;
 
 /* Except for Trash, each task each week must be assigned two volunteers */
 s.t. fb{w in WEEKS}: sum {v in VOLS} x[v,'Trash',w] = 1;
-s.t. fc{t in TASKS, w in WEEKS : t <> 'Trash'}: sum {v in VOLS} x[v,t,w] = 2;
+s.t. fc{t in TASKS, w in WEEKS : t &lt;> 'Trash'}: sum {v in VOLS} x[v,t,w] = 2;
 
 /* Each volunteer must cycle through each task twice (except trash) */
-s.t. fd{t in TASKS, v in VOLS : t <> 'Trash'}: sum {w in WEEKS} x[v,t,w] >= 2;
+s.t. fd{t in TASKS, v in VOLS : t &lt;> 'Trash'}: sum {w in WEEKS} x[v,t,w] >= 2;
 
 /* Minimize number of times anyone has to do trash */
-s.t. fz{v in VOLS}: sum {w in WEEKS} x[v,'Trash',w] <= z;
+s.t. fz{v in VOLS}: sum {w in WEEKS} x[v,'Trash',w] &lt;= z;
 
 /* Pair p(u,v,t,w) is 1 if u and v worked together on Week w and Task t */
-s.t. ga{t in TASKS, w in WEEKS, (u,v) in PAIRS}: p[u,v,t,w] <= x[u,t,w];
-s.t. gb{t in TASKS, w in WEEKS, (u,v) in PAIRS}: p[u,v,t,w] <= x[v,t,w];
+s.t. ga{t in TASKS, w in WEEKS, (u,v) in PAIRS}: p[u,v,t,w] &lt;= x[u,t,w];
+s.t. gb{t in TASKS, w in WEEKS, (u,v) in PAIRS}: p[u,v,t,w] &lt;= x[v,t,w];
 s.t. gc{t in TASKS, w in WEEKS, (u,v) in PAIRS}: 
 p[u,v,t,w] >= x[u,t,w] + x[v,t,w] - 1;
 
@@ -846,9 +839,9 @@ This is a simple model to demonstrate modeling of a transportation
     demand constraints, the objective is to minimize transportation costs. 
     This model demonstrates:
 
-* Transportation optimization.</li>
-* Factoring of applications into separate modeling and data sections.</li>
-* Use of defaults and defining sets in the data section.</li>
+* Transportation optimization.
+* Factoring of applications into separate modeling and data sections.
+* Use of defaults and defining sets in the data section.
 */
 
 /* Model  Section */
@@ -866,7 +859,7 @@ var x {CUSTOMERS, SOURCES} >= 0;
 minimize Cost: sum{c in CUSTOMERS, s in SOURCES} Tcost[c,s]*x[c,s];
 
 /* Total shipped from each source must be less than source capacity */
-s.t. SRC {s in SOURCES}: sum {c in CUSTOMERS} x[c,s] <= Supply[s];
+s.t. SRC {s in SOURCES}: sum {c in CUSTOMERS} x[c,s] &lt;= Supply[s];
 
 /*  Total received must equal customer demand */
 s.t. DST {c in CUSTOMERS}: sum {s in SOURCES} x[c,s] = Demand[c];
@@ -1129,7 +1122,7 @@ end;
 param start symbolic;
 param finish symbolic, != start;
 param maxspeed > 0;
-param minspeed > 0, <= maxspeed;
+param minspeed > 0, &lt;= maxspeed;
 
 set PLACES;
 param lat{PLACES};
@@ -1156,7 +1149,7 @@ s.t. ar2 : sum{b in PLACES} x[b,start] = 0;
 
 # subtour elimination using an idea from Andrew O. Makhorin
 var y{PLACES, PLACES} >= 0, integer;
-s.t. capbnd {a in PLACES, b in PLACES} : y[a,b] <= (card(PLACES)-1)*x[a,b];
+s.t. capbnd {a in PLACES, b in PLACES} : y[a,b] &lt;= (card(PLACES)-1)*x[a,b];
 s.t. capcon {a in PLACES} : sum{b in PLACES} y[b,a] 
             + (if a=start then card(PLACES)) = 1 + sum{b in PLACES} y[a,b];
 
@@ -1173,7 +1166,7 @@ s.t. t0 {a in PLACES} : tlv[a] >= tar[a];
 s.t. t1 {a in PLACES, b in PLACES} : 
         tar[b] >= tlv[a] + gcdist[a,b]/maxspeed - bigM*(1-x[a,b]);
 s.t. t2 {a in PLACES, b in PLACES} : 
-        tar[b] <= tlv[a] + gcdist[a,b]/minspeed + bigM*(1-x[a,b]);
+        tar[b] &lt;= tlv[a] + gcdist[a,b]/minspeed + bigM*(1-x[a,b]);
 s.t. t3 {a in PLACES : a != start } : tea[a] >= S1[a] - tar[a];   # early arrival
 s.t. t4 {a in PLACES : a != start } : tla[a] >= tar[a] - S2[a];   # late arrival
 s.t. t5 {a in PLACES : a != finish} : ted[a] >= S1[a] - tlv[a];   # early departure
@@ -1181,10 +1174,10 @@ s.t. t6 {a in PLACES : a != finish} : tld[a] >= tlv[a] - S2[a];   # late departu
 
 # the objective is weighted sum of average and maximum time window excursions
 var tmax >= 0;
-s.t. o1 {a in PLACES} : tea[a] <= tmax;
-s.t. o2 {a in PLACES} : tla[a] <= tmax;
-s.t. o3 {a in PLACES} : ted[a] <= tmax;
-s.t. o4 {a in PLACES} : tld[a] <= tmax;
+s.t. o1 {a in PLACES} : tea[a] &lt;= tmax;
+s.t. o2 {a in PLACES} : tla[a] &lt;= tmax;
+s.t. o3 {a in PLACES} : ted[a] &lt;= tmax;
+s.t. o4 {a in PLACES} : tld[a] &lt;= tmax;
 
 minimize obj: sum{a in PLACES} (1*tea[a] + 2*tla[a] + 2*ted[a] + 1*tld[a]) + 2*tmax;
 
@@ -1329,7 +1322,7 @@ var y{P,N,N} integer, >= 0;
 
 # route capacity
 s.t. sb1 {p in P, (a,aLoc) in N, (b,bLoc) in N} : 
-    y[p,a,aLoc,b,bLoc] <= card(CUSTOMERS)*x[p,a,aLoc,b,bLoc];
+    y[p,a,aLoc,b,bLoc] &lt;= card(CUSTOMERS)*x[p,a,aLoc,b,bLoc];
 
 # allocate tokens to links from the start nodes
 s.t. sb2 : sum {p in P, (a,aLoc) in START, (b,bLoc) in N } y[p,a,aLoc,b,bLoc] 
@@ -1353,11 +1346,11 @@ s.t. ob2 {p in P} : routeLegs[p] = sum{(a,aLoc) in START, (b,bLoc) in N} y[p,a,a
 
 # maximum distance on the route of any plane
 var maxDistance >= 0;
-s.t. ob3 {p in P} : routeDistance[p] <= maxDistance;
+s.t. ob3 {p in P} : routeDistance[p] &lt;= maxDistance;
 
 # maximum number of legs on the route of any plane
 var maxLegs >= 0;
-s.t. ob4 {p in P} : routeLegs[p] <= maxLegs;
+s.t. ob4 {p in P} : routeLegs[p] &lt;= maxLegs;
 
 # pick an objective. Here we minimize total route distance.
 minimize distance : sum{p in P} routeDistance[p];
@@ -1462,7 +1455,7 @@ end;
 # DATA SETS (TO BE GIVEN IN THE DATA SECTION)
 
 param maxspeed > 0;
-param minspeed > 0, <= maxspeed;
+param minspeed > 0, &lt;= maxspeed;
 
 # CUSTOMERS is a set of (name,location) pairs 
 set CUSTOMERS dimen 2;
@@ -1558,7 +1551,7 @@ var y{P,N,N} >= 0;
 
 # route capacity
 s.t. sb1 {p in P, (a,aLoc) in N, (b,bLoc) in N} : 
-    y[p,a,aLoc,b,bLoc] <= card(CUSTOMERS)*x[p,a,aLoc,b,bLoc];
+    y[p,a,aLoc,b,bLoc] &lt;= card(CUSTOMERS)*x[p,a,aLoc,b,bLoc];
 
 # allocate tokens to links from the start nodes
 s.t. sb2 : sum {p in P, (a,aLoc) in START, (b,bLoc) in N } y[p,a,aLoc,b,bLoc] 
@@ -1581,7 +1574,7 @@ var tld{N} >= 0;
 s.t. t00 {(a,aLoc) in N} : tlv[a,aLoc] >= tar[a,aLoc];
 s.t. t01 {p in P, (a,aLoc) in N, (b,bLoc) in N} : tar[b,bLoc] >= tlv[a,aLoc] 
         + gcdist[aLoc,bLoc]/maxspeed - bigM*(1-x[p,a,aLoc,b,bLoc]);
-s.t. t02 {p in P, (a,aLoc) in N, (b,bLoc) in N} : tar[b,bLoc] <= tlv[a,aLoc] 
+s.t. t02 {p in P, (a,aLoc) in N, (b,bLoc) in N} : tar[b,bLoc] &lt;= tlv[a,aLoc] 
         + gcdist[aLoc,bLoc]/minspeed + bigM*(1-x[p,a,aLoc,b,bLoc]);
 s.t. t03 {(a,aLoc) in CUSTOMERS} : tea[a,aLoc] >= T1[a,aLoc] - tar[a,aLoc];
 s.t. t04 {(a,aLoc) in FINISH} :    tea[a,aLoc] >= TF1[a,aLoc] - tar[a,aLoc];
@@ -1625,7 +1618,7 @@ for {p in P} {
         'Depart','Arrive','Dist.','Time','Speed';
     for {k in routeLegs[p]..0 by -1} {
         printf {(a,aLoc) in N, (b,bLoc) in N : 
-            (x[p,a,aLoc,b,bLoc] = 1) && (abs(y[p,a,aLoc,b,bLoc]-k)<0.001)} 
+            (x[p,a,aLoc,b,bLoc] = 1) && (abs(y[p,a,aLoc,b,bLoc]-k)&lt;0.001)} 
             "%-12s %-4s %5.2f%1s  %-12s %-4s %5.2f%1s  %7.1f %5.2f %6.1f\n",
             a, aLoc, tlv[a,aLoc], 
             if (ted[a,aLoc] > 0) then "E" else (if (tld[a,aLoc] > 0) then "L" else " "),
@@ -1711,8 +1704,8 @@ param c >= 0;                              # Cost
 param w >= 0;                              # Salvage value
 
 /* Price data makes sense only if  Price > Cost > Salvage */
-check: c <= r;
-check: w <= c;
+check: c &lt;= r;
+check: w &lt;= c;
 
 /* Probabilistic Demand Forecast */
 set SCENS;                                 # Scenarios
@@ -1741,8 +1734,8 @@ maximize OBJ: ExProfit;
 
 /* Goods sold are limited by the order quantities and the demand  */
 s.t. PRFT: ExProfit = -c*x + sum{k in SCENS} Pr[k]*(r*y[k] + w*(x-y[k]));
-s.t. SUPL {k in SCENS}: y[k] <= x;
-s.t. DMND {k in SCENS}: y[k] <= D[k];
+s.t. SUPL {k in SCENS}: y[k] &lt;= x;
+s.t. DMND {k in SCENS}: y[k] &lt;= D[k];
 
 solve;
 
@@ -1870,15 +1863,15 @@ var y{p in PERIODS, s in STATES[p]};
 portfolio {p in PERIODS, s in STATES[p]}: C[p,s] = x[p,s]*B[p,s] + y[p,s]*S[p,s];
 
 # Self financing constraints
-do {p in PERIODS, s in STATES[p] : p < nPeriods}: 
+do {p in PERIODS, s in STATES[p] : p &lt; nPeriods}: 
     x[p,s]*B[p+1,s] + y[p,s]*S[p+1,s] >= C[p+1,s];
-up {p in PERIODS, s in STATES[p] : p < nPeriods}: 
+up {p in PERIODS, s in STATES[p] : p &lt; nPeriods}: 
     x[p,s]*B[p+1,s+1] + y[p,s]*S[p+1,s+1] >= C[p+1,s+1];
 
 # Finance early exercise option
-edo{p in PERIODS, s in STATES[p] : p < nPeriods}: 
+edo{p in PERIODS, s in STATES[p] : p &lt; nPeriods}: 
     x[p,s]*B[p+1,s] + y[p,s]*S[p+1,s] >= S[p+1,s] - Kstrike;
-eup{p in PERIODS, s in STATES[p] : p < nPeriods}: 
+eup{p in PERIODS, s in STATES[p] : p &lt; nPeriods}: 
     x[p,s]*B[p+1,s+1] + y[p,s]*S[p+1,s+1] >= S[p+1,s+1] - Kstrike;
     
 # Payoff option value
@@ -1946,15 +1939,15 @@ var y{p in PERIODS, s in STATES[p]};
 portfolio {p in PERIODS, s in STATES[p]}: P[p,s] = x[p,s]*B[p,s] + y[p,s]*S[p,s];
 
 # Self financing constraints
-do {p in PERIODS, s in STATES[p] : p < nPeriods}: 
+do {p in PERIODS, s in STATES[p] : p &lt; nPeriods}: 
     x[p,s]*B[p+1,s] + y[p,s]*S[p+1,s] >= P[p+1,s];
-up {p in PERIODS, s in STATES[p] : p < nPeriods}: 
+up {p in PERIODS, s in STATES[p] : p &lt; nPeriods}: 
     x[p,s]*B[p+1,s+1] + y[p,s]*S[p+1,s+1] >= P[p+1,s+1];
 
 # Finance early exercise option
-edo{p in PERIODS, s in STATES[p] : p < nPeriods}: 
+edo{p in PERIODS, s in STATES[p] : p &lt; nPeriods}: 
     x[p,s]*B[p+1,s] + y[p,s]*S[p+1,s] >= Kstrike - S[p+1,s];
-eup{p in PERIODS, s in STATES[p] : p < nPeriods}: 
+eup{p in PERIODS, s in STATES[p] : p &lt; nPeriods}: 
     x[p,s]*B[p+1,s+1] + y[p,s]*S[p+1,s+1] >= Kstrike - S[p+1,s+1];
     
 # Payoff option value
@@ -2021,9 +2014,9 @@ var y{p in PERIODS, s in STATES[p]};
 portfolio {p in PERIODS, s in STATES[p]}: C[p,s] = x[p,s]*B[p,s] + y[p,s]*S[p,s];
 
 # Self financing constraints
-do {p in PERIODS, s in STATES[p] : p < nPeriods}: 
+do {p in PERIODS, s in STATES[p] : p &lt; nPeriods}: 
     x[p,s]*B[p+1,s] + y[p,s]*S[p+1,s] >= C[p+1,s];
-up {p in PERIODS, s in STATES[p] : p < nPeriods}: 
+up {p in PERIODS, s in STATES[p] : p &lt; nPeriods}: 
     x[p,s]*B[p+1,s+1] + y[p,s]*S[p+1,s+1] >= C[p+1,s+1];
     
 # Payoff option value
@@ -2094,9 +2087,9 @@ var y{p in PERIODS, s in STATES[p]};
 portfolio {p in PERIODS, s in STATES[p]}: P[p,s] = x[p,s]*B[p,s] + y[p,s]*S[p,s];
 
 # Self financing constraints
-do {p in PERIODS, s in STATES[p] : p < nPeriods}: 
+do {p in PERIODS, s in STATES[p] : p &lt; nPeriods}: 
     x[p,s]*B[p+1,s] + y[p,s]*S[p+1,s] >= P[p+1,s];
-up {p in PERIODS, s in STATES[p] : p < nPeriods}: 
+up {p in PERIODS, s in STATES[p] : p &lt; nPeriods}: 
     x[p,s]*B[p+1,s+1] + y[p,s]*S[p+1,s+1] >= P[p+1,s+1];
     
 # Payoff option value
@@ -2160,7 +2153,7 @@ set EVENTS := setof {(m,e) in CONTRACTS} e;
 var x{CONTRACTS} >= 0;
 
 # The total investment is limited to $1,000
-s.t. investment : sum{(m,e) in CONTRACTS} price[m,e]*x[m,e] <= 1000;
+s.t. investment : sum{(m,e) in CONTRACTS} price[m,e]*x[m,e] &lt;= 1000;
 
 # The objective is maximize the worst-case payout
 var minpayout >= 0;
@@ -2204,7 +2197,7 @@ end;
     <!-- modal Example -->
     <div id="ModalExampleRiskNeutral" class="modal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content>
+            <div class="modal-content">
                 <div id="RiskNeutral" class="modal-body modal-body-example">
                    /* # Risk Neutral Analysis for _American Idol_
 
@@ -2444,7 +2437,7 @@ s.t. IC: w[0] = Wi;
 s.t. FC {n in 1..Nper}: w[n] = (1+ri)*(w[n-1] + u[n-1]) - sum{e in EXPENSES}x[n,e];
 
 /* Objective: Minimize fraction of the salary that is saved */
-s.t. MaxSavings {n in 0..Nper}: u[n] <= fSave*salary[n];
+s.t. MaxSavings {n in 0..Nper}: u[n] &lt;= fSave*salary[n];
 
 /* minimize present value of the savings plan */
 minimize SaveFraction: fSave;
@@ -2517,9 +2510,9 @@ set T := 1..N;
 /* Cholesky lower triangular decomposition */
 param Chol{i in I, j in I : i >= j} := 
     if i = j then
-        sqrt(Sigma[i,i]-(sum {k in I : k < i} (Chol[i,k]*Chol[i,k])))
+        sqrt(Sigma[i,i]-(sum {k in I : k &lt; i} (Chol[i,k]*Chol[i,k])))
     else
-        (Sigma[i,j]-sum{k in I : k < j} Chol[i,k]*Chol[j,k])/Chol[j,j];
+        (Sigma[i,j]-sum{k in I : k &lt; j} Chol[i,k]*Chol[j,k])/Chol[j,j];
 
 /* Because there is no way to seed the PRNG, a workaround */
 param utc := prod {1..2} (gmtime()-1000000000);
@@ -2612,7 +2605,7 @@ var s{1..N} >= 0;
 var x;
 var f;
 
-s.t. A {n in 1..N} : s[n] <= z[n];
+s.t. A {n in 1..N} : s[n] &lt;= z[n];
 s.t. B : 1 = sum{n in 1..N} z[n];
 s.t. C : x = sum{n in 1..N} (xi[n-1]*z[n] + (xi[n]-xi[n-1])*s[n]);
 s.t. D : f = sum{n in 1..N} (fi[n-1]*z[n] + (fi[n]-fi[n-1])*s[n]);
@@ -2679,13 +2672,13 @@ statement. This is an order n^3 technique which appears to be the best one can
 do in GMPL. */
 
 printf "\nAscending Order\n";
-param r{i in I} := 1 + sum {j in I} if (a[j] < a[i] || a[j] == a[i] && j < i) then 1;
+param r{i in I} := 1 + sum {j in I} if (a[j] &lt; a[i] || a[j] == a[i] && j &lt; i) then 1;
 printf {k in 1..card(I), i in I: k == r[i]}  "%3d: %8s  %7.4f\n", r[i], i, a[i];
 
 /* Set in Descending Order with comparison within the domain spec */
 
 printf "\nDescending Order\n";
-param s{i in I} := 1 + sum {j in I : a[i] < a[j] || a[i] == a[j] && i < j} 1;
+param s{i in I} := 1 + sum {j in I : a[i] &lt; a[j] || a[i] == a[j] && i &lt; j} 1;
 printf {k in 1..card(I), i in I: k == s[i]}  "%3d: %8s  %7.4f\n", s[i], i, a[i];
 
 /* There may be instances where it would be useful to compute rank-order  in 
@@ -2694,18 +2687,18 @@ for example.  */
 
 param BigM := 1 + sum{i in I} abs(a[i]);
 
-var y{i in I, j in I : i<>j } binary;    # y[i,j] = 0 if a[i] <= a[j]
+var y{i in I, j in I : i&lt;>j } binary;    # y[i,j] = 0 if a[i] &lt;= a[j]
 var t{i in I};                           # rank-order of a[i]
 
 /* Pair of disjunctive constraints to force ordering of a[i] */
-s.t. A{i in I, j in I : i<>j}: a[i] <= a[j] + BigM*y[i,j];
-s.t. B{i in I, j in I : i<>j}: a[j] <= a[i] + BigM*(1-y[i,j]);
+s.t. A{i in I, j in I : i&lt;>j}: a[i] &lt;= a[j] + BigM*y[i,j];
+s.t. B{i in I, j in I : i&lt;>j}: a[j] &lt;= a[i] + BigM*(1-y[i,j]);
 
 /* Forces a tie breaker if a[i] = a[j] */
-s.t. C{i in I, j in I : i<>j}: y[i,j] + y[j,i] = 1;
+s.t. C{i in I, j in I : i&lt;>j}: y[i,j] + y[j,i] = 1;
 
 /* t[i] is rank-order could be computed post-solution */
-s.t. D{i in I}: t[i] = 1 + sum{j in I: i<>j} y[i,j];           
+s.t. D{i in I}: t[i] = 1 + sum{j in I: i&lt;>j} y[i,j];           
 
 solve;
 
@@ -2799,8 +2792,8 @@ s.t. MASSBAL {i in UNITS}: sum{j in STREAMS} A[i,j]*x[j] = 0;
 
 /* Error Model */
 s.t. s_err {k in SENSORS}: y[k] =  x[s[k]] + epos[k] - eneg[k];
-s.t. e_pos {k in SENSORS}: epos[k] <= emax[k] + bigM*gerr[k];
-s.t. e_neg {k in SENSORS}: eneg[k] <= emax[k] + bigM*gerr[k];
+s.t. e_pos {k in SENSORS}: epos[k] &lt;= emax[k] + bigM*gerr[k];
+s.t. e_neg {k in SENSORS}: eneg[k] &lt;= emax[k] + bigM*gerr[k];
 
 /* Solve and Display Solution */
 solve;
@@ -2905,9 +2898,9 @@ var x{REACTIONS};
 var n{SPECIES};
 
 s.t. A {s in SPECIES} : n[s] = sum{r in REACTIONS} stoich[s,r]*x[r];
-s.t. B {s in RAW_MATERIALS}: sum{r in REACTIONS} n[s] <= 0;
+s.t. B {s in RAW_MATERIALS}: sum{r in REACTIONS} n[s] &lt;= 0;
 s.t. C {s in SPECIES diff RAW_MATERIALS}: sum{r in REACTIONS} n[s] >= 0;
-s.t. D : sum{s in RAW_MATERIALS} -n[s] <= 1;
+s.t. D : sum{s in RAW_MATERIALS} -n[s] &lt;= 1;
 
 maximize atom_efficiency: sum{s in PRODUCTS} mw[s]*n[s];
 
@@ -3063,9 +3056,9 @@ param r_portfolio
 /* Cholesky Lower Triangular Decomposition of the Covariance Matrix */
 param c{i in S, j in S : i >= j} := 
     if i = j then
-        sqrt(cov[i,i]-(sum {k in S : k < i} (c[i,k]*c[i,k])))
+        sqrt(cov[i,i]-(sum {k in S : k &lt; i} (c[i,k]*c[i,k])))
     else
-        (cov[i,j]-sum{k in S : k < j} c[i,k]*c[j,k])/c[j,j];
+        (cov[i,j]-sum{k in S : k &lt; j} c[i,k]*c[j,k])/c[j,j];
 
 /* Because there is no way to seed the PRNG, a workaround */
 param utc := prod {1..2} (gmtime()-1000000000);
@@ -3076,7 +3069,7 @@ check sum{1..seed} Uniform01() > 0;
 param N default 5000;
 set T := 1..N;
 param zn{j in S, t in T} := Normal(0,1);
-param rt{i in S, t in T} := r[i] + sum {j in S : j <= i} c[i,j]*zn[j,t];
+param rt{i in S, t in T} := r[i] + sum {j in S : j &lt;= i} c[i,j]*zn[j,t];
 
 /* MAD Optimization */
 
@@ -3263,7 +3256,7 @@ The wager must be smaller than the stake or any maximum wager established for
 the game.  To encourage risk taking, the future value of money is discounted 
 by a factor \\(a \leq 1\\).  
 
-Given an initial stake \\(x < N\\), what is the optimal gambling strategy?
+Given an initial stake \\(x &lt; N\\), what is the optimal gambling strategy?
 
 ### Formulation
 
@@ -3272,7 +3265,7 @@ Sutton and Barto in "Reinforcement Learning" (MIT Press, 1998). The function
 \\(V(k,x)\\) is the expected value of the game after the kth wager and with a
 stake \\(x\\). If the gambler reaches the goal of winning a stake \\(N\\) at
 \\(k\\) then the value of the game is \\(V(k,N) = N\\). Or if the gamble
-loses everything, then \\(V(k,0) = 0\\). Otherwise, for \\(x < N\\), the
+loses everything, then \\(V(k,0) = 0\\). Otherwise, for \\(x &lt; N\\), the
 Bellman equation for optimality provides the recursion
 
 \\[V(k-1,x) = a \max_u  [ p V(k,x+u) + q V(k,x-u) ]\\]
@@ -3299,10 +3292,10 @@ constraints that are active at optimality.  \\(u[x]\\) may have multiple values.
 /* Problem Parameters.  Any of these can be adjusted in a data section.  */
 
 param N default 100, >= 1;               # Goal
-param p default 0.25, >= 0, <= 1;        # Winning probability
-param q default 1-p, >= 0, <= 1-p;       # Losing probability
-param B default N, >= 1, <= N;           # Maximum wager size
-param a default 1, >= 0, <= 1;           # Discount factor
+param p default 0.25, >= 0, &lt;= 1;        # Winning probability
+param q default 1-p, >= 0, &lt;= 1-p;       # Losing probability
+param B default N, >= 1, &lt;= N;           # Maximum wager size
+param a default 1, >= 0, &lt;= 1;           # Discount factor
 
 /* Set of States */
 
@@ -3338,7 +3331,7 @@ printf "\n\n %7s  %10s   %4s\n",'x','V[x]','u[x]: Optimal Wagers';
 printf     " %7s  %10s   %4s"  ,'-','----','---------------------';
 for {x in X}{
    printf "\n %7d  %10.4f  ",x, V[x];
-   printf {u in U[x]: abs(-V[x] + a*(p*V[x+u] + q*V[x-u])) < 0.00001} " %3d",u;
+   printf {u in U[x]: abs(-V[x] + a*(p*V[x+u] + q*V[x-u])) &lt; 0.00001} " %3d",u;
 }
 
 end;
@@ -3364,7 +3357,7 @@ A risk averse gambler with enters a game with the idea
     an integer smaller than the current stake or the maximum wager established
     for the game. The total stake is limited to an amount \\(N\\). The gambler
     is risk averse where utility of the final stake is \\(\log(x)\\). Given an
-    initial stake \\(x < N\\), calculate a strategy that maximizes the expected
+    initial stake \\(x &lt; N\\), calculate a strategy that maximizes the expected
     utility at the end of the game.
 
 ## Formulation of a Solution
@@ -3400,9 +3393,9 @@ December 18, 2009
 
 param T default 5 >= 1;              # Stages
 param N default 50, >= 1;            # Maximum Stake (reduce if computations are slow)
-param p default 0.55, >= 0, <= 1;    # Winning probability
-param q default 1-p, >= 0, <= 1-p;   # Losing probability
-param B default N, >= 1, <= N;       # Maximum wager size
+param p default 0.55, >= 0, &lt;= 1;    # Winning probability
+param q default 1-p, >= 0, &lt;= 1-p;   # Losing probability
+param B default N, >= 1, &lt;= N;       # Maximum wager size
 
 /* Set of States */
 
@@ -3430,7 +3423,7 @@ solve;
 param w{t in 0..T-1,x in 1..N} := 
    if x==N then 0
    else min{u in U[x]:
-      abs(-V[t,x]+p*V[t+1,x+u]+q*V[t+1,x-u])<0.000001} u;
+      abs(-V[t,x]+p*V[t+1,x+u]+q*V[t+1,x-u])&lt;0.000001} u;
 
 table tab1 {x in X} OUT "JSON" "Optimal Wager" "LineChart" : 
     x, w[T-1,x]~Wager;
@@ -3466,7 +3459,7 @@ end;
                             <div id='container'>
 
                                 <!-- Navigation Menu Bar -->
-                                <nav class="navbar navbar-default" role="navigation">
+                                <nav class="navbar navbar-default">
                                     <div class="container-fluid">
                                         <div class="navbar-header">
                                             <a class="navbar-brand" href="#">Solver MathProg</a>
@@ -3493,77 +3486,77 @@ end;
                                                     <li class="dropdown-submenu">
                                                         <a href="#">MathProg - B&aacute;sicos <span class="caret"></span></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a id="ExampleHelloWorld" onclick="copiarExemplo('helloWorld');">Olá, Mundo</a></li>
-                                                            <li><a id="lpTwoVars" onclick="copiarExemplo('lpTwoVars');">Programa Linear em Duas Variáveis</a></li>
-                                                            <li><a id="linearEqns" onclick="copiarExemplo('linearEqns');">Equações Lineares</a></li>
-                                                            <li><a id="sets" onclick="copiarExemplo('sets');">Conjuntos</a></li>
-                                                            <li><a id="parameters" onclick="copiarExemplo('parameters');">Parâmetros</a></li>
+                                                            <li><a id="ExampleHelloWorldMenu" onclick="copiarExemplo('helloWorld');">Olá, Mundo</a></li>
+                                                            <li><a id="lpTwoVarsMenu" onclick="copiarExemplo('lpTwoVars');">Programa Linear em Duas Variáveis</a></li>
+                                                            <li><a id="linearEqnsMenu" onclick="copiarExemplo('linearEqns');">Equações Lineares</a></li>
+                                                            <li><a id="setsMenu" onclick="copiarExemplo('sets');">Conjuntos</a></li>
+                                                            <li><a id="parametersMenu" onclick="copiarExemplo('parameters');">Parâmetros</a></li>
                                                         </ul>
                                                     </li>
 
                                                     <li class="dropdown-submenu">
                                                         <a href="#">Tabelas e Gr&aacute;ficos <span class="caret"></span></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a id="ChartTools" onclick="copiarExemplo('chartTools');">Gráficos do Google</a></li>
+                                                            <li><a id="ChartToolsMenu" onclick="copiarExemplo('chartTools');">Gráficos do Google</a></li>
                                                         </ul>
                                                     </li>
 
                                                     <li class="dropdown-submenu">
-                                                        <a href='#'>Agendameto <span class="caret"></span></a>
+                                                        <a href='#'>Agendamento <span class="caret"></span></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a id="projectCPM" onclick="copiarExemplo('ProjectCPM');">Gestão de Projetos com CPM</a></li>
-                                                            <li><a id="jobShop" onclick="copiarExemplo('jobShop');">Escala para Trabalho em Lojas</a></li>
-                                                            <li><a id="JesuitVols" onclick="copiarExemplo('Jesuit');">Corpo de Voluntários Jesuítas</a></li>
+                                                            <li><a id="projectCPMMenu" onclick="copiarExemplo('ProjectCPM');">Gestão de Projetos com CPM</a></li>
+                                                            <li><a id="jobShopMenu" onclick="copiarExemplo('jobShop');">Escala para Trabalho em Lojas</a></li>
+                                                            <li><a id="JesuitVolsMenu" onclick="copiarExemplo('Jesuit');">Corpo de Voluntários Jesuítas</a></li>
                                                         </ul>
                                                     </li>
 
                                                     <li class="dropdown-submenu">
                                                         <a href='#'>Transporte e Atribui&ccedil;&otilde;es <span class="caret"></span></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a id="TransportNet" onclick="copiarExemplo('transportationNetwork');">Rede de Transporte</a></li>
-                                                            <li><a id="StockCutting" onclick="copiarExemplo('StockCutting');">Redução de Estoque</a></li>
-                                                            <li><a id="TableSeating" onclick="copiarExemplo('tableSeating');">Lugares à Mesa</a></li>
+                                                            <li><a id="TransportNetMenu" onclick="copiarExemplo('transportationNetwork');">Rede de Transporte</a></li>
+                                                            <li><a id="StockCuttingMenu" onclick="copiarExemplo('StockCutting');">Redução de Estoque</a></li>
+                                                            <li><a id="TableSeatingMenu" onclick="copiarExemplo('tableSeating');">Lugares à Mesa</a></li>
                                                         </ul>
                                                     </li>
 
                                                     <li class="dropdown-submenu">
                                                         <a href='#'>Rota otimizada <span class="caret"></span></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a id="tsptw" onclick="copiarExemplo('tsptw');">Tempo de Viagem do Caixeiro Viajante</a></li>
-                                                            <li><a id="vrp" onclick="copiarExemplo('vrp');">Roteamento de Veículos</a></li>
-                                                            <li><a id="vrptw" onclick="copiarExemplo('vrptw');">Tempo da Rota Veicular</a></li>
+                                                            <li><a id="tsptwMenu" onclick="copiarExemplo('tsptw');">Tempo de Viagem do Caixeiro Viajante</a></li>
+                                                            <li><a id="vrpMenu" onclick="copiarExemplo('vrp');">Roteamento de Veículos</a></li>
+                                                            <li><a id="vrptwMenu" onclick="copiarExemplo('vrptw');">Tempo da Rota Veicular</a></li>
                                                         </ul>
                                                     </li>
 
                                                     <li class="dropdown-submenu">
                                                         <a href='#'>Programação Estoc&aacute;stica <span class="caret"></span></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a id="Newsvendor" onclick="copiarExemplo('theNewsvendorProblem');">Problema do Vendedor de Notícias</a></li>
-                                                            <li><a id="PlantExp" onclick="copiarExemplo('PlantExpansion');">Análise de Cenário para uma Expansão de Fábrica</a></li>
-                                                            <li><a id="RNGambling" onclick="copiarExemplo('RNGambling');">Programação Dinâmica Estocástica: Jogador Neutro ao Risco</a></li>
-                                                            <li><a id="RAGambling" onclick="copiarExemplo('RAGambling')">Programação Dinâmica Estocástica: Jogador Avesso ao Risco</a></li>
+                                                            <li><a id="NewsvendorMenu" onclick="copiarExemplo('theNewsvendorProblem');">Problema do Vendedor de Notícias</a></li>
+                                                            <li><a id="PlantExpMenu" onclick="copiarExemplo('PlantExpansion');">Análise de Cenário para uma Expansão de Fábrica</a></li>
+                                                            <li><a id="RNGamblingMenu" onclick="copiarExemplo('RNGambling');">Programação Dinâmica Estocástica: Jogador Neutro ao Risco</a></li>
+                                                            <li><a id="RAGamblingMenu" onclick="copiarExemplo('RAGambling')">Programação Dinâmica Estocástica: Jogador Avesso ao Risco</a></li>
                                                         </ul>
                                                     </li>
 
                                                     <li class="dropdown-submenu">
                                                         <a href='#'>Engenharia <span class="caret"></span></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a id="DataReconciliation" onclick="copiarExemplo('DataReconciliation');">Reconciliação de Dados</a></li>
-                                                            <li><a id="Solvay" onclick="copiarExemplo('solvay');">Análise de Geração / Consumo</a></li>
+                                                            <li><a id="DataReconciliationMenu" onclick="copiarExemplo('DataReconciliation');">Reconciliação de Dados</a></li>
+                                                            <li><a id="SolvayMenu" onclick="copiarExemplo('solvay');">Análise de Geração / Consumo</a></li>
                                                         </ul>
                                                     </li>
 
                                                     <li class="dropdown-submenu">
                                                         <a href='#'>Finan&ccedil;as <span class="caret"></span></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a id="retir" onclick="copiarExemplo('retirement');">Poupança para a Aposentadoria</a></li>
-                                                            <li><a id="PortfolioMAD" onclick="copiarExemplo('MAD');">Otimização de Portfólio (MAD)</a></li>
-                                                            <li><a id="AmericanCall" onclick="copiarExemplo('BPMACO');">Opção de Compra Americana</a></li>
-                                                            <li><a id="AmericanPut" onclick="copiarExemplo('BPMAPO');">Opção de Venda Americana</a></li>
-                                                            <li><a id="EuropeanCall" onclick="copiarExemplo('BPMECO');">Opção de Compra Europeia</a></li>
-                                                            <li><a id="EuropeanPut" onclick="copiarExemplo('BPMEPO');">Opção de Venda Europeia</a></li>
-                                                            <li><a id="Political" onclick="copiarExemplo('PoliticalArb');">Arbitragem em Mercados Políticos</a></li>
-                                                            <li><a id="RiskNeutralAI" onclick="copiarExemplo('RiskNeutral');">Probabilidades de Risco Neutro para American Idol</a></li>
+                                                            <li><a id="retirMenu" onclick="copiarExemplo('retirement');">Poupança para a Aposentadoria</a></li>
+                                                            <li><a id="PortfolioMADMenu" onclick="copiarExemplo('MAD');">Otimização de Portfólio (MAD)</a></li>
+                                                            <li><a id="AmericanCallMenu" onclick="copiarExemplo('BPMACO');">Opção de Compra Americana</a></li>
+                                                            <li><a id="AmericanPutMenu" onclick="copiarExemplo('BPMAPO');">Opção de Venda Americana</a></li>
+                                                            <li><a id="EuropeanCallMenu" onclick="copiarExemplo('BPMECO');">Opção de Compra Europeia</a></li>
+                                                            <li><a id="EuropeanPutMenu" onclick="copiarExemplo('BPMEPO');">Opção de Venda Europeia</a></li>
+                                                            <li><a id="PoliticalMenu" onclick="copiarExemplo('PoliticalArb');">Arbitragem em Mercados Políticos</a></li>
+                                                            <li><a id="RiskNeutralAIMenu" onclick="copiarExemplo('RiskNeutral');">Probabilidades de Risco Neutro para American Idol</a></li>
                                                         </ul>
                                                     </li>
 
@@ -3571,9 +3564,9 @@ end;
                                                     <li class="dropdown-submenu">
                                                         <a href='#'>T&eacute;cnicas Avan&ccedil;adas <span class="caret"></span></a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a id="MVNormal" onclick="copiarExemplo('Normal');">Amostragem de uma Distribuição Normal Multivariada</a></li>
-                                                            <li><a id="PiecewiseLinearInterpolation" onclick="copiarExemplo('piecewise');">Interpolação Linear por Partes</a></li>
-                                                            <li><a id="Sort" onclick="copiarExemplo('Sorting')">Ordenação</a></li>
+                                                            <li><a id="MVNormalMenu" onclick="copiarExemplo('Normal');">Amostragem de uma Distribuição Normal Multivariada</a></li>
+                                                            <li><a id="PiecewiseLinearInterpolationMenu" onclick="copiarExemplo('piecewise');">Interpolação Linear por Partes</a></li>
+                                                            <li><a id="SortMenu" onclick="copiarExemplo('Sorting')">Ordenação</a></li>
                                                         </ul>
                                                     </li>
 
@@ -3611,7 +3604,7 @@ end;
                                     <!-- Model Editor -->
                                     <div id='divModelFileName'>
                                         <h4>Nome do arquivo</h4>
-                                        <input type="text" id='modelFileName' class="NomeArquivo"></input>
+                                        <input type="text" id='modelFileName' class="NomeArquivo">
                                     </div>
                                     <textarea id='editor'></textarea><br>
 
